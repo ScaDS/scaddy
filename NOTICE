@@ -1,0 +1,68 @@
+Scaddy — Multi-Agent Conversational AI for Living Lab Tours
+Copyright (c) 2025 Oliver Welz, Philipp Schott, Gregor Wolf | ScaDS.AI Living Lab
+
+This product is licensed under the MIT License (see LICENSE file).
+
+This product includes or makes use of the following third-party software,
+libraries, models, and infrastructure components:
+
+PYTHON LIBRARIES:
+  - FastAPI (MIT License) — Copyright (c) 2018 Sebastián Ramírez
+  - Uvicorn (BSD 3-Clause License) — Copyright (c) Encode OSS Ltd
+  - Pydantic (MIT License) — Copyright (c) 2017 to present Pydantic Services Inc.
+  - OpenAI Python SDK (Apache 2.0 License) — Copyright (c) OpenAI
+  - python-dotenv (BSD 3-Clause License) — Copyright (c) Saurabh Kumar
+  - requests (Apache 2.0 License) — Copyright (c) Kenneth Reitz
+  - python-multipart (Apache 2.0 License) — Copyright (c) The Python-Multipart Team
+
+AI/ML LIBRARIES:
+  - PyTorch (BSD 3-Clause License) — Copyright (c) Meta Platforms, Inc. and affiliates
+  - Transformers (Apache 2.0 License) — Copyright (c) The HuggingFace Team
+  - Tokenizers (Apache 2.0 License) — Copyright (c) The HuggingFace Team
+  - faster-whisper (MIT License) — Copyright (c) SYSTRAN
+  - CTranslate2 (MIT License) — Copyright (c) SYSTRAN
+  - Silero VAD (MIT License) — Copyright (c) snakers4
+
+AUDIO LIBRARIES:
+  - PyAudio (MIT License) — Copyright (c) Hubert Pham
+  - Pydub (MIT License) — Copyright (c) James Robert
+  - Resampy (ISC License) — Copyright (c) Brian McFee
+  - SoundFile (BSD 3-Clause License) — Copyright (c) Bastian Bechtold, et al.
+
+IMAGE LIBRARIES:
+  - Pillow (HPND / MIT-CMU License) — Copyright (c) Jeffrey A. Clark and contributors
+  - NumPy (BSD 3-Clause License) — Copyright (c) NumPy Developers
+
+FRONTEND:
+  - Vue.js 3 (MIT License) — Copyright (c) Yuxi (Evan) You
+  - Font Awesome 6 Free (CC BY 4.0 for icons, MIT for code) — Copyright (c) Fonticons, Inc.
+
+AI MODELS:
+  - faster-whisper "medium" (MIT code / Apache-2.0 model) — Based on OpenAI Whisper
+  - CLIP ViT-B/32 (MIT License) — Copyright (c) OpenAI
+  - Silero VAD v5 (MIT License) — Copyright (c) snakers4
+
+DOCKER INFRASTRUCTURE:
+  - NVIDIA CUDA Docker Image (NVIDIA Deep Learning Container License)
+    Base: nvidia/cuda:12.6.1-cudnn-devel-ubuntu22.04
+    https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+SYSTEM LIBRARIES (in Docker via apt-get):
+  - ffmpeg (GPL-2.0+ / LGPL-2.1+ depending on build configuration)
+  - libsndfile1 (LGPL-2.1) — Copyright (c) Erik de Castro Lopo
+  - libasound2 / ALSA (LGPL-2.1) — Copyright (c) Jaroslav Kysela, et al.
+  - libgl1-mesa-glx / Mesa (MIT License) — Copyright (c) Mesa contributors
+  - PortAudio (MIT License) — Copyright (c) Ross Bencina, Phil Burk
+  - build-essential / GCC (GPL-3.0) — Copyright (c) Free Software Foundation
+  - binutils (GPL-2.0) — Copyright (c) Free Software Foundation
+  - git (GPL-2.0) — Copyright (c) Linus Torvalds, et al.
+  - curl (MIT-like curl license) — Copyright (c) Daniel Stenberg, et al.
+  - wget (GPL-3.0) — Copyright (c) Free Software Foundation
+  - Python 3.10 (PSF License) — Copyright (c) Python Software Foundation
+
+RESEARCH FUNDING:
+  This software was developed as part of the ScaDS.AI Dresden/Leipzig Living
+  Lab, funded by the German Federal Ministry of Education and Research (BMBF)
+  and the Free State of Saxony.
+
+

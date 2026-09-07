@@ -1,0 +1,19 @@
+title Add New Image Knowledge
+
+participant User
+participant Scaddy Frontend
+participant Scaddy Backend
+
+
+
+User->Scaddy Frontend: take picture
+User->Scaddy Frontend: record audio for image description
+Scaddy Frontend->Scaddy Backend: send recorded audio to API endpoint
+Scaddy Backend->Scaddy Backend: VAD service: check if recording contains speech
+Scaddy Backend->Scaddy Backend: STT service: transcribe audio with FasterWhisper
+Scaddy Frontend<-Scaddy Backend: return transcription
+User->Scaddy Frontend: confirm image and transcripted description
+Scaddy Frontend->Scaddy Backend: send image and description to API endpoint
+Scaddy Backend->Scaddy Backend: CLIP service: create embedding for image and save it together with description
+Scaddy Backend->Scaddy Backend: CLIP service: reload embeddings
+Scaddy Frontend<-Scaddy Backend: confirm adding image to embeddings

@@ -1,0 +1,444 @@
+### Copy the content below to `knowledge.txt` to give Scaddy example-knowledge on ScaDS.AI:
+
+ScaDS.AI Dresden/Leipzig is a national AI Competence Center based in Germany. Our work is institutionally funded by the Federal Ministry of Education and Research (BMBF) which is now the Federal Ministry of Research, Technology and Space (BMFTR)
+and the Free State of Saxony.
+
+About ScaDS.AI Dresden/Leipzig:
+Our team consists of more than 180 people, including renowned international researchers as well as highly skilled professionals in administrative and communicative roles. 
+With more than 60 principal investigators, two Humboldt Professorships and up to twelve planned AI Professorships we support excellence in research and teaching in Leipzig 
+and Dresden. Promoting young talent is also an important part of our work, therefore we have established four Junior Research Groups that meaningfully complement our current 
+research topics. Furthermore, we are welcoming Associated Members who contribute their expertise to our center.
+
+
+Research:
+At our two locations in Dresden and Leipzig, we investigate the need of AI applications for high quality data and formalized knowledge to achieve valid and reliable 
+prediction and analytical results. We therefore combine research on new Fundamental AI methods not only with our Big Data research on data integration and data quality, 
+but also with new methods for data acquisition and visualization to support data-driven AI. In addition, AI methods need to be systematically integrated into scientific 
+analysis workflows, which can accelerate research progress in many areas. In addition, trust, transparency, and traceability of AI-driven decisions and processes are key. 
+Finally, privacy and informational self-determination remain largely unresolved issues that we will tackle with research on privacy-preserving machine learning.
+
+We contribute to the future development and use of AI in five key areas:
+1. Applied AI and Big Data:
+We apply AI and Big Data methods in an interdisciplinary manner in various
+research areas, e.g., medicine, natural sciences, humanities and social sciences.
+
+Many application areas increasingly rely on data analytics, machine learning, and AI methods. It is therefore an important goal of Scads.ai Dresden/Leipzig to develop 
+applied AI and Big Data in Life Sciences and Medicine, Environmental and Earth Sciences, Software Engineering, Physics and Chemistry, as well as Engineering and Business.
+Core topics of the applied AI and Big Data research area include data-driven modeling, surrogate models, physics-informed machine learning, and inverse design using AI 
+and Machine Learning approaches suitably adapted to the challenges of the specific application domain. Data Science and Machine Learning methods like sparse multidimensional 
+inference, physics-informed and physics-aware learning, robust maps, as well as invertible and constrained neural networks provide unifying challenges for applications 
+across domains, from Medicine to Software Engineering. Addressing them jointly will greatly benefit from the synergies generated in Scads.ai Dresden/Leipzig and guide 
+the fundamental algorithmic research with application needs.
+
+Topic Areas of Applied AI and Big Data:
+- Life Science and Medicine
+In the life sciences and medicine, this includes research in applications ranging from personalized therapies over drug discovery and medical image analytics, to providing 
+infrastructures and predictive models for health and biomedical data. Our research provides tailor-made AI-based algorithms and solutions for this. We collaborate with 
+various research institutes in biology, biotechnology, and systems biology, as well as with research hospitals and centers for digital health in order to explore AI 
+technologies within realistic clinical settings.
+
+Artificial Intelligence plays a transformative role in Medical Informatics, Life Science and Medicine, particularly in handling and analyzing large-scale data sets. 
+AI technologies like machine learning algorithms can analyze vast amounts of medical data quickly, including Electronic Health Records (EHR), genetic information, 
+bio-signals, and patient-generated data. Here, AI can assist in identifying patterns and insights that might be missed by human analysis, leading to improved diagnostic 
+tools, personalized medicine, and better patient outcomes. We strive to bring current AI models closer to the clinics and provide the infrastructure of tomorrow to set 
+the interoperability standards that will enable AI analyzes on large-scale clinical data.
+Medical Informatics coveres aspects about regulations and concepts; evaluation, visualization, and dissemination; harmonization and processing
+
+Research Focus
+Synthetic tabular data for artificial clinical trials
+Synthetic tabular data for artificial clinical trials involves creating realistic but artificial datasets that closely mimic real-world clinical trial data. 
+This approach uses AI algorithms, especially generative models (e.g., CTAB-GAN, NFlow) or transformer models, to generate data resembling actual patient information 
+in structure and statistical properties. This synthetic data helps overcome privacy concerns and data availability issues or improves the investigation of missing control 
+arms and alternative study cohorts among other clinical applications. It also allows researchers to independently test hypotheses, validate models, and simulate outcomes 
+without relying on actual patient data, thus accelerating research while maintaining patient confidentiality.
+
+Biomarker predictions based on genomic sequencing data
+Biomarker prediction using AI algorithms leverages the complex patterns in genomic sequencing data. These advanced AI models, based for example on GAN or transformer 
+architectures, can identify potential biomarkers by learning intricate genomic sequences and their associations with various diseases or therapeutic responses. 
+We are utilizing these concepts on our current clinical application of lung cancer patients and mainly seek to investigate long-range dependencies in genetic sequences, 
+as well as large DNA translocations. These approaches may open up new avenues in precision medicine, offering insights into cancer mechanisms in general, as well as individual 
+drug development strategies for lung cancer.
+
+Biosignal processing for sleep research
+We are developing AI models for automated sleep scoring from biosignals, such as electroencephalograms and electrocardiograms. Our aim to support tedious manual scoring 
+tasks in clinical routines by training AI models to support these tasks. We are also investigating the limitations of AI scoring algorithms to understand where AI is safe to use. 
+We are further using AI to answer neurological research questions about different sleep states. Additionally, we are exploring where AI can reduce the complexity of measurement 
+setups by improving the analysis of information from simplified setups, such as wearables. We will also transfer this AI knowledge and methods to the assessment of Anaesthesia 
+from biosignals.
+
+Standardization of clinical data for AI applications
+Our standardization efforts of clinical data for AI applications involve harmonizing diverse datasets into a common format, enhancing their utility in AI-driven 
+healthcare projects. The Observational Medical Outcomes Partnership (OMOP) Common Data Model (CDM) and tools from the Observational Health Data Sciences and Informatics (OHDSI) 
+initiative, like the Patient-Level Prediction (PLP) and the Health Analytics Data-to-Evidence Suite (HADES), play a key role in this process. These tools and models facilitate 
+the conversion of varied clinical datasets into a standardized structure, enabling efficient data analysis, interoperability across different healthcare systems, and more 
+robust AI model development. This standardization is an essential foundation for leveraging the full potential of AI in healthcare analytics and research.
+
+Aims
+In the research area “Life Science and Medicine”, our strategic goals encompass leveraging AI for enhanced data analysis to ultimately improve clinical decision-making. 
+This is coupled with the use of AI in various fields, ranging from genetic biomarker prediction to foster personalized medicine and enable early disease detection. 
+A foundational aspect of these goals is the standardization and harmonization of clinical data, utilizing standard formats like to ensure compatibility and reliability 
+in AI applications. Expanding these AI methodologies to broader medical fields, such as Anaesthesia assessment, lung cancer or Acute Myeloid Leukaemia further exemplifies 
+the commitment to integrating advanced AI tools in medical research and practice.
+
+- Earth and Environmental Sciences
+Our work in environmental and earth sciences ranges from climate and weather prediction to ecosystem modeling and water resource policy optimization. 
+In all of these application areas, we develop data-driven models, parameter learning, visual computing approaches, and graph learning methods and adapt them to the specific 
+application. We address key data science and AI challenges in these fields, tightly integrated with numerical computation, in collaboration with leading environmental research 
+centers.
+
+The focus area Earth and Environmental Sciences at Scads.ai Dresden/Leipzig uses Artificial Intelligence (AI) and big data analytics to describe a multitude of natural phenomena and related effects. This includes for example the impacts of natural hazards and climate change risks (e.g., extreme weather events or destructive geomorphological processes) or biodiversity loss. AI is becoming increasingly important in this context as most parts of the Earth system are continuously monitored by sensors and AI is able to cope with both the volume of data and the heterogeneous data characteristics.
+
+Our applications range from local to global scale and address dynamics of the atmosphere, the oceans, terrestrial regions including the cryosphere and even in-depth processes within the upper crust of the Earth. Air, water, soils, ice, rocks and biodiversity are constantly monitored with dedicated local monitoring systems and satellites. Furthermore, citizen science projects collect data with smartphone apps.
+
+All in all, studying the Earth system and its changes has become a data-intensive research problem. At Scads.ai Dresden/Leipzig, we work on the methodological challenges arising in this broad context from different perspectives and consider multiple environmental facets.
+
+We are an interdisciplinary team of domain scientists (geophysics/seismology, geomorphology, physics) and computer scientists and enjoy fruitful discussions and the exchange from multiple perspectives to address today’s pressing questions on the dynamic Earth.
+
+Research Focus
+Climate Research
+One of the most pressing questions of our time is the prediction of the future climate and the associated risks. Various AI avenues are being explored to harness the potential of Deep Learning for better projections in this context. For instance, neural networks – the backbone of many AI methods – can now be informed by physical principles (Physics Informed Neuronal Networks). This leads to novel types of models that can efficiently represent uncertain processes in complex models. A prominent example is the question of how to represent clouds – still a key uncertainty in climate models. Developments of this kind will also be a key contribution to the international development of Digital Twins of the Earth (e.g. EU Destination Earth).
+Terrestrial Ecosystems
+
+For different ecosystems such as forests, grasslands, croplands or even high mountainous regions and glaciers we focus on a branch of AI that incorporates explainability. This means that every prediction we make with AI shall be accompanied by some form of attribution or explanation. For instance, if we aim to predict crop failure, forest dieback, wildfires, flood damage, landslides, debris flows or glacial motion we are also interested in the likely causes of these events. This is often less trivial than expected due to a combination of driving factors. Combining traditional process-based modeling approaches with innovative AI and Big Data analytics will hopefully lead to improved ecosystem management and adaptation strategies at regional to local scales.
+Environmental Seismology
+
+Our planet is shaped by a multitude of physical, chemical and biological processes. Most of these processes and their effect on the ground’s properties can be sensed by seismic instruments – as discrete events or ongoing signatures. Seismic methods have been developed, adopted and advanced to study those dynamics at or near the surface of the Earth, with unprecedented detail, completeness and resolution. The community of geophysicists interested in earth surface dynamics and geomorphologists, glaciologists, hydrologists, volcanologists, geochemists, biologists and engineering geologists interested in using arising geophysical tools and techniques is progressively growing and collaboratively advancing the emerging scientific discipline Environmental Seismology.
+
+We here foster methodological developments for an improved understanding of near-surface environmental processes on the exploration scale. Our focus lies on natural hazards and mass movements, especially in the cryosphere and mountainous regions. Based on highly resolved time series data, we combine signal processing, source location (array techniques), modelling and machine learning to conduct our research.
+
+Rhonegletscher (Switzerland) – A multitude of physical processes (e.g., melt water flow, crevassing, wind, basal sliding, rock falls) can be sensed by seismic instruments and analyzed with Machine Learning leading to groundbreaking insights into the glacier’s dynamics (Photo taken by J. Umlauft, 2022).
+
+Earth System Data Cubes
+The concept of the Earth System Data Cube (Mahecha et al. 2020) rapidly turned into a popular tool in Earth System Sciences during the last years as it tremendously facilitates data visualization and (interoperable) data handling, including preprocessing or statistical analyses. The original data sets are transformed in space and time to fit to the common grid of the Data Cube which consists of three dimensions: longitude, latitude and time, and further holds a set of variables that are mapped into this spatio-temporal system. Data Cubes are typically chunked, meaning they consist of a set of smaller cubes (chunks) which together build what we call the Earth System Data Cube (ESDC). The ESDC concept allows to treat multiple remotely sensed spatio-temporal data streams as a singular one and therefore enables to interact with a wide range of data.
+
+A parallel development is the growing need for the application of Machine Learning methods to Earth System Sciences data as most parts of the Earth system are continuously monitored by sensors and Machine Learning is able to cope with both the volume of data and the heterogeneous data characteristics. Ideally, classical operations on the ESDC could be extended by Machine Learning applications in order to sustain interoperability. However, there is a conflict between the nature of remotely-sensed data, the structure of the ESDC and the requirements for meaningful Machine Learning applications which need to be addressed:
+
+Sampling the Earth naturally leads to an uneven distribution of data points as a result of its spherical shape. This phenomenon is reinforced by data gaps due to e.g., satellite trajectories or cloud cover. Hence, there is no uniform data distribution across the chunks of the ESDC provided.
+Remotely sensed data tends to be auto-correlated within (neighboring) chunks as data points which are in close spatio-temporal vicinity are naturally characterized by a low variance.
+
+Therefore, it is mandatory to enable Machine Learning that respects the basic principles of geo-data way beyond naive applications of Machine Learning in the Earth system context. We focus on the development of sophisticated and efficient sampling strategies for Data Cubes and ML tools that can operate on this large cloud-hosted data sets.
+Multivariate Earth System Data Cubes (Figure by Maximilian Söchting, RSC4Earth, Leipzig University)
+
+Multivariate Earth System Data Cubes (Figure by Maximilian Söchting, RSC4Earth, Leipzig University)
+
+Clouds and Global Climate
+Extreme weather and climate events (droughts, floods, storms, and many more) are particularly impactful. Therefore, gathering knowledge on their mechanisms and possible distributional shifts under climate change is an important research field.
+
+Extremes can interact: contemporaneous extremes in multiple variables, at separate locations, or extremes at different points in time can exacerbate (or weaken) the strain they put on impacted systems. Co-occurring wind and rain can lead to storm surges, simultaneous droughts can strain the world’s food system, and an early-spring heat wave combined with a growing-period frost can lead to crop losses. These types of events are called “compound” extreme events.
+
+A common way to study extremes is to build a model of the impacted system (crops, forests, rivers, and more), drive this model using weather data, and then examine the results. However, extremes, especially multi-variate events, are rare. Therefore, “weather generators” were developed that simulate time series of artificial weather data with statistical properties similar to observations.
+
+However, most weather generators have limitations: many can only be applied for single sites, for single variables, or require strong assumptions. Machine Learning, especially the recently exploding field of generative AI, holds promise to be applied in this direction. We employ these and other probabilistic methods to generate artificial weather data, thereby aiding researchers who study extreme impacts.
+
+Aims
+Naturally, Earth System Science research is a broad field that incorporates a multitude of subdomains and scientists – specialized in e.g., remote sensing, seismology, engineering geophysics, geology, sedimentology, hydrology, meteorology or geoecology. Within those domains, experts are typically assigned to work with a certain data type and/or on a pre-defined spatio-temporal scale and resolution inherent to the data they are interested in. For instance, the remote sensing community commonly works with gridded satellite imagery data covering nearly the entire atmosphere and surface of the Earth with a temporal resolution in the range of hours to days.
+This data is well suited to study, e.g., weather patterns, climate change, land cover, or natural disasters such as hurricanes or wildfires. On the other hand, the Earth’s interior is continuously monitored using large seismic networks and dense arrays, which are distributed all over the world with different geometries, acquiring up to thousands of data points per second. Such punctual ground motion measurements allow for, e.g., earthquake observation, subsurface tomography or the investigation of near-surface dynamics and natural hazards. Beyond remote sensing and seismology, there are many more multimodal and multiscale data types from various sensors with different characteristics.
+Those fundamental differences in resolution, scale and data type hinder interactions between the ESS subdomains. As of today, our community lacks interoperable tools and workflows that go beyond traditional methods and allow for the integration of this rich, heterogeneous potpourri of data.  
+
+
+- Software Engineering
+In the application area of software engineering, we consider AI in two ways: First, we research software architectures for implementing scalable and maintainable AI systems. Second, we investigate the use of AI to help design and optimize software systems. This includes AI-based optimization of performance and energy consumption, as well as portability across emerging hardware technologies and novel accelerator designs. For this, we closely collaborate with hardware engineers and software engineers alike, as well as with leading supercomputing installations.
+
+As AI-powered systems become ubiquitous, the demand of software solutions supporting its productionization becomes essential. The recent success of Large Language Models would not be possible without proper software solutions to scale training and inference of such model. At the same time, the use of Artificial Intelligence and Machine Learning for novel software solutions enables new kinds of hardware, such as FPGA-based Machine Learning accelerators and specialized compilers for Machine Learning algorithms. The Scads.ai Dresden/Leipzig area of software engineering seeks to lift these opportunities to enable the development and optimization of the next generation of AI-based systems.
+Graphic. Software Engineering.
+Research Focus
+
+Specifically, we concentrate on three research areas: MLOps and productionization, support for FPGA-based Machine Learning-Accelerators, and Machine Learning-enabled compiler optimizations.
+
+First, we aim to uncover main obstacles and challenges to the productionization of Machine Learning models. This includes sociotechnical challenges among teams and organizational structures, as well as technological ambiguities of AI pipelines, especially for Large Language Model-based systems.
+Moreover, we aim to improve energy and performance efficiency of AI-based systems via modern sampling, learning, and Large Language Model-based techniques.
+Overall, the goal is to research on methods to improve the productionization of modern AI systems.
+
+Aims
+
+The overarching goal of our works is to empower an efficient usage of Artificial Intelligence methods and tools. That is, we strive to substantially improve performance and energy consumption of training, inference, and deployment of Machine Learning models and code, as well as enable novel hardware platforms. We follow a strategic approach of covering the full stack of AI-related aspects: From specialized hardware support (e.g., Machine Learning-focused FPGAs) overspecialized compilers for Machine Learning code to the integration of the Machine Learning model and code into the infrastructure and software stack (i.e., MLOps). 
+
+
+- Physics and Chemistry
+In physics and chemistry, we research how next-generation data-driven modeling and simulation complement traditional theory-driven approaches. Our research addresses open questions in learning predictive mathematical models for complex dynamics from measurement data, learning molecular structure-function relationships, and providing physically consistent data-driven surrogate models in applications ranging from molecular modeling over astrophysics, quantum physics and photonics to plasma and high-energy physics. We collaborate with a network of physics and chemistry research centers.
+Chemistry
+
+Machine Learning has a long tradition in chemistry. Quantitative structure-activity relationship (QSAR) connects molecular structures to physico-chemical properties and biological, toxicological, or pharmacological activities. The inverse problem, known as matter engineering, is receiving rapidly increasing attention. At Scads.ai Dresden/Leipzig, we already use novel Artificial Intelligence (AI) approaches to accelerate ligand-based screening in computer-aided drug discovery (CADD) and with BCL software library, we make advances in Machine Learning and AI available to screen and prioritize millions of drug-like molecules in silico. Graph-grammar-based tools facilitate the analysis of chemical reaction networks based on graph transformations and hyperflows, linking Machine Learning and AI methods to predict molecular properties and reactions and to extensive knowledge bases.
+Physics
+
+Machine Learning and AI approaches have recently gained momentum also in physics, employing data-driven methods to close the loop between theory and experiment, stimulating both the theoretical comprehension of fundamental physical relationships and the experimental validation of the very complex dynamics. We use Machine Learning and AI on surrogate modeling and inverse problem for Matter under Extreme Conditions, Astrophysics in the Laboratory, the understanding of Warm Dense Matter, Plasma Physics, Accelerator Physics, and strong-field quantum electrodynamics. In Nanophotonics, we target the control of dynamical processes and emergent collective behavior by optical microscopy in synthetic active materials. Single-shot CNNs and Q-learning techniques on discrete state spaces were developed e.g. for real-time object classification and tracking in microscopy images.
+Research Focus
+
+Our research in Physics and Chemistry concentrates on two major groups of topics:
+
+learning effective models of complex dynamical phenomena and complex relationships among data, and
+non-convex inverse problems, i.e., design problems.
+
+Chemistry
+Effective models of molecular properties will be lifted to a new level of quality by adapting deep learning algorithms to enable directly training on 3D representation of the drug-like molecules in ligand-based Combined Annotation Dependent Depletion (CADD), enabling ultra-large library-screening cascades for ‘make-on-demand’ libraries with more than 200,000,000 possible molecules. New rule learning techniques will combine molecular properties with known chemical reactions enabling the large-scale extraction of mechanistic information for metabolic engineering and pharmacodynamics. The prospect is to revolutionize large-scale molecular design tasks, ranging from synthesis planning and drug screening, and to rational interventions in complex microbial communities. We plan to extend current NN methods to enable real-time 3D object tracking in complex biological contexts. Deep Reinforcement Learning techniques will be generalized to continuous state and discrete action space.
+
+Physics
+Complementarily, we will explore active particles for reservoir computing in a liquid environment. Large-scale Physics-informed neural networks and invertible neural networks will be used for surrogate modeling of Plasma-Wakefield particle accelerators and reconstruction of experimental data e.g. in radiation diagnostics, X-ray diffraction, and Ptychography. Fast and reliable reconstruction of experimental diagnostics by invertible neural networks will revolutionize experimental campaigns at large-scale research facilities. Simulation-based inference, denoising, background removal, transfer learning, surrogate modeling, pattern recognition, uncertainty quantification, and studies of trustworthiness will be one main focus.
+
+Aims
+We will study infrastructure for learning on streaming data from large-scale plasma simulations for building surrogate models and solve inverse problems in plasma physics and study anomaly detection for n-dimensional data, uncertainty quantification of Machine Learning predictions and Machine Learning-based denoising. Moreover, research will aim at a prototype Infrastructure for federated AI training on pseudonymized and anonymized patient data. Main activities in the area of Chemistry will comprise the integration of deep learning artificial intelligence with microfluidic chip enhanced drug discovery, the development of a combination of combinatorial and AI techniques for reaction rule learning in large chemical reaction systems, machine learning guided control of a thermoplasmonic separation in complex mixtures and chemical reaction control in microfluidic environment. Moreover, decision tree approaches for chemical networks in bacterial communities and new approaches of physical learning in active matter systems will be explored.
+
+
+- Engineering and Business
+In the application area of engineering and business, Big Data and AI are paramount for business data analytics, business engineering, virtual prototyping, and traffic/logistics optimization and planning. We focus on intelligent business information systems and AI-based product design. We for example research the intelligent linking of offline analyses with historical data in business intelligence, and we place Big Data in the economical context in collaboration with business engineers and the federal ministry of economics.
+For future engineering and business applications, Big Data and Artificial Intelligence (AI) are important for mechanical design, maintenance applications, traffic/logistics optimization and planning as well as business data analytics. In engineering and business, Big Data and AI are paramount for business data analytics, business engineering, virtual prototyping, and traffic/logistics optimization and
+planning. We focus on intelligent business information systems and AI-based product design.
+
+Research Focus
+Lightweight Engineering and Material Design
+The process of designing lightweight engineering applications is characterized by highly multi-disciplinary and cross-scale approaches. This fuses aspects of material science, processing technology, experimental mechanics, function integration as well as computational modeling and simulation. However, from a practical engineering and system point of view, this implies highly complex and nonlinear problems with extensive parameters and data spaces. Traditional assessment and handling strategies often result in unexploited engineering potential or even suboptimal solutions. In this respect, methods of Machine Learning (ML) and AI offer unique possibilities to explore, assess and utilize in an advanced manner. Specifically, improved design efficiency, more resilient processes, advanced sensor data analytics as well as utilization of material inherent characteristics to improve weight aspect ratios and resource efficiency are addressed:
+
+Algorithms and methods for soft robotic components
+Data-driven material modeling for more efficient cross-scale structural evaluation using surrogate data derived from Representative Volume Elements,
+Sensor development, data interpretation, and calibration for structural health monitoring and predictive maintenance,
+Manufacturing process monitoring, digitally linked material development processes,
+Image analysis for defect detection in shearographic images and CT data.
+
+Control algorithms development for soft robotic components based on virtual prototyping
+
+Traffic modeling and autonomous driving
+We aim at developing a powerful tool that simulates vehicle behavior in the line and mixed traffic, using reinforcement learning of the hierarchical deep networks and embedding it into real vehicles. The training process concentrates on the lateral and longitudinal movements, correct behaviors on the columns, natural moves in the free and stop-and-go traffic, foreseen overtakes, etc. The derived model will be extended to the self-learning process of the development of roads, traffic lights, and complete traffic infrastructure and transferred into a physical demonstrator driven by the developed models.
+
+Exemplarily, deep reinforcement learning (DRL) has been used for autonomous vessel movement with DRL controllers, where behavioral policies are considered which are capable to follow arbitrary paths on restricted waterways under the influence of varying environmental conditions such as changing water depths and high current velocities including cross-current situations. Also, DRL agents are trained in a simulated environment for vehicles in a way that the driving policy of the agent is able to guide the vehicle to maintain its performance in the real-world environment robustly and master different driving tasks, such as lane following and overtaking.
+Virtually trained Deep Reinforcement Learning (DRL) agents to master real-world driving tasks, such as lane following and overtaking.
+Business engineering
+
+Previous work includes research activities in the area of process mining. In particular, deep learning methods (Recurrent Neural Networks, Variational Autoencoders, Attention Mechanisms) were investigated and developed to monitor and classify infrequent behavior in business processes. Transitioning into the area of business engineering, the collected knowledge from the development of deep learning approaches can be applied further.
+
+For this purpose, common deep learning architectures that are based on intuitive, fast and unconscious data processing (system 1) will be transferred into a system (system 2) that is based on logical, sequential data processing and conscious reasoning. Connecting these two systems is possible by using attention mechanisms (e.g., Self-Attention, Multi-Head Attention), which allows for focused and conscious data processing. The focus of system 2 in the area of business engineering lies in the guidance of superordinate business rules, which result from different components (processes, systems, strategies). The vision of this approach is to enhance existing or to create new methods and concepts to achieve robust, intelligent business processes and more resilient business systems in the future.
+Aims
+
+Development of AI/Machine Learning methods for sensor development and calibration, for measurement data interpretation and for evaluating the results of imaging measurement methods
+Process modelling, analysis, control and applied big data and AI monitoring
+how parameterized FE models (virtual entities) can be used to generate training data for AI/Machine Learning methods to evaluate physical components (real entities)
+Identification of material parameters and purely data-driven material models for efficient cross-scale structural evaluation
+In the field of traffic modelling: behavior of vehicles in scheduled and mixed traffic with the help of reinforcement learning of hierarchical deep networks
+Extension of traditional methods based on new reusable patterns defined in the form of business rules
+Development of new AI/Machine Learning architectures
+
+Research Focus
+
+Core topics of the applied AI and Big Data research area include data-driven modeling, surrogate models, physics-informed machine learning, and inverse design using AI and Machine Learning approaches suitably adapted to the challenges of the specific application domain. Data Science and Machine Learning methods like sparse multidimensional inference, physics-informed and physics-aware learning, robust maps, as well as invertible and constrained neural networks provide unifying challenges for applications across domains, from Medicine to Software Engineering.
+
+
+2. AI Algorithms and Methods
+
+AI Algorithms and Methods are at the heart of Artificial Intelligence research and have dramatically impacted Data Science. The confluence of compute power, massive databases, and efficient algorithms to implement AI methods have impacted applications from engineering to the life sciences to social sciences. In spite of the success of AI across a wide range of applications, there remain many open problems and challenges. Interpretability, reliability, and uncertainty quantification in AI are requirements for many sensitive societal applications from biomedicine to decisions made by financial entities.
+
+Topic Areas:
+Federated and Efficient Learning
+There are two intertwined challenges to learning: learning algorithms must become more efficient in their use of resources, and in many applications, data transport to a central compute unit is often impractical or even prohibited by regulations. Both challenges are addressed by methods of federated and efficient learning.
+
+
+Scalable Visual Computing
+In the field of Scalable Visual Computing, we invent, improve and apply scalable Machine Learning and AI methods for generating, analyzing, and interacting with visual information.
+Research Focus
+These methods enable novel applications in the fields of Image Analysis, Computer Vision, Computer Graphics, Visualization and Human-Computer Interaction. This includes applications we develop within Scads.ai Dresden/Leipzig in the life sciences and environmental sciences.
+
+Computer Vision
+In the field of Computer Vision, our goal is to allow humans to incorporate complex structured knowledge into vision algorithms. In the field of Image and Signal Analysis, we focus on image data on different scales and their uncertainty.
+
+Computer Graphics
+In the field of Computer Graphics and Visualization, we investigate scalable rendering techniques that enable immersive visual exploration for a fast understanding of complex data.
+
+Human-Computer Interaction
+In the field of Human-Computer Interaction for Data Visualization, our research on human-in-the-loop scalability for visual computing will contribute to the interface between AI-empowered systems, Big Data analytics, and various human stakeholders.
+
+Aims
+The strategic goal of the research area “Scalable Visual Computing” is to improve the scalability of some algorithms in the fields of computer vision, computer graphics and human-computer interaction.
+
+
+Understanding Language
+Language is typically viewed as the pinnacle of (human) intelligence. The seamlessness by which machines can be integrated with society depends on their understanding and mastery of language. Our research thus covers domain-specific large-scale language modeling, text manipulation algorithms, argumentation, and causal language, studied specifically in the context of conversational AI and connecting knowledge extraction and graphs with goal-driven dialogs, as well as in the context of mining the scientific literature.
+Language is often viewed as the pinnacle of (human) intelligence. The seamlessness by which machines can be integrated with society depends on their understanding and mastery of language. Our research thus covers domain-specific large-scale language modeling, text manipulation algorithms, argumentation, and causal language. It is studied specifically in the context of conversational AI and connecting knowledge extraction and graphs with goal-driven dialogs, as well as in the context of mining the scientific literature.
+
+Research Focus
+Our research in natural language processing and information retrieval focuses on algorithms and models. The overarching challenge is advancing language understanding and manipulation.
+
+Key tasks
+modeling (language representation in a computer),
+paraphrasing (conveying the message of a given text using different words),
+summarization (conveying the key message of a given text with fewer words),
+argumentation (persuading readers of a claim or a conclusion),
+conversation,
+and causal knowledge.
+
+Artificial Intelligence technologies with the help of increasingly large language resources from web archives fuel the generalization capabilities of these models.
+
+Aims
+In the research area “Understanding Language”, we are building domain-specific language models for writing assistance and problem-solving, focusing on latent variables in language models.
+
+Paraphrasing at paragraph level; we expect to gain insights from summarizing long texts.
+Summarization of research in new domains, such as social media.
+Constrained paraphrasing and summarization; constraints include language simplicity, writing style, and domain-specific requirements.
+Integrating computational argumentation and conversational technologies.
+Causal knowledge acquisition from text for advanced AI reasoning.
+Bias analytics in all of the above; focus on minority protection.
+
+
+Graph-based Artificial Intelligence
+We significantly extend the research on graph analytics and the development of the distributed open-source system GRADOOP. We develop new indexing and graph summarization techniques and apply selectivity-enhancing mechanisms known from graph databases. Advanced representation learning in Knowledge Graphs will be integrated into the PyKEEN framework, and we explore knowledge-based methods for rich graph models.
+Graph-based data analysis and learning has received a lot of attention recently, but still requires much more research. We are building open-source prototypes for scalable management and analysis of based on either the property graph model or RDF. A cornerstone of this is graph representation learning, which allows graphs to be used directly in a wide range of machine learning and machine learning approaches and natural language understanding techniques. These representations thus form a bridge between knowledge representation and Machine Learning.
+
+Research Focus
+We significantly extend the research on graph analytics and the development of the distributed open-source system GRADOOP. We develop new indexing and graph summarization techniques and apply selectivity-enhancing mechanisms known from graph databases. Advanced representation learning in Knowledge Graphs will be integrated into the PyKEEN framework, and we explore knowledge-based methods for rich graph models.
+
+Aims
+Analysis and ML on dynamic graphs:
+Scalable RDF graph queries
+Representation learning in knowledge graphs
+Graph-based reasoning and ontology languages
+
+
+Methods and Hardware for Neuro-Inspired Computing
+We develop neuro-inspired hardware platforms for real-time AI applications, deployed as SpiNNcloud at TU Dresden. We also work on the integration with other computing hardware, like other neuro-inspired hardware systems or FPGA, and focus on unsupervised learning of spiking neural networks.
+
+Research Focus
+Development of the 2nd generation neuromorphic spinnaker system
+Energy-efficient real-time simulation of networks on the scale of the human brain
+Large-scale realisation of neuro-inspired AI algorithms
+Signal/image processing and machine learning for automotive and robotics applications
+Development of methods for artificial neural networks
+Development of machine learning methods in the field of cognitive data processing, including synaptic plasticity and dynamics in models for spiking neural networks (SNN)
+
+Aims
+Our long-term goal is to develop neuro-inspired models and learning algorithms for efficient execution on neuro-inspired hardware, supported by a simulation and model integration flow. These methods will
+be developed for the SpiNNaker neuromorphic architecture, for FPGA platforms, as well as hybrid
+architectures, providing a development and evaluation platform for novel computing architectures.
+
+
+Knowledge Representation and Engineering
+At Scads.ai Dresden/Leipzig, we carry out cutting-edge research in various aspects of knowledge representation and engineering such as ontology languages, with an emphasis on description logics and rule-based languages, ontology reasoning and algorithms, ontology-mediated access to large and incomplete data, both exact and approximate, knowledge graphs and Wikidata, non-monotonic reasoning, formal argumentation, explanation of the behavior of knowledge-based systems, and methods for dealing with heterogeneous and diverse knowledge.
+Intelligent systems require access to general knowledge about the world and to specific knowledge about the application domain in which they are deployed. The aim of the knowledge representation and engineering topic area of Scads.ai Dresden/Leipzig is to develop suitable languages and formalisms that can be used to represent this knowledge, along with associated reasoning methods and algorithms. Based on these methods, we seek to engineer practical tools that support knowledge engineers in capturing actual knowledge in concrete applications and that make it possible to integrate symbolic knowledge representation into the complex and heterogeneous systems of modern AI.
+Word cloud for the topic area "Knowledge Representation and Engineering"
+
+Research Focus
+At Scads.ai Dresden/Leipzig, we carry out cutting-edge research in various aspects of knowledge representation and engineering such as ontology languages, with an emphasis on description logics and rule-based languages, ontology reasoning and algorithms, ontology-mediated access to large and incomplete data, both exact and approximate, knowledge graphs and Wikidata, non-monotonic reasoning, formal argumentation, explanation of the behaviour of knowledge-based systems, and methods for dealing with heterogeneous and diverse knowledge.
+
+Aims
+Advance the theoretical foundations of ontologies, knowledge representation, knowledge graphs and argumentation frameworks
+Develop methods for explaining the results of knowledge-based AI systems
+Integrate symbolic AI methods with approaches to AI based on machine learning
+Advance the development and deployment of knowledge graphs such as Wikidata
+Provide methods and tools for AI-based access to large and heterogeneous data
+
+
+Mathematical Foundations and Statistical Learning
+We create, extend, and refine mathematical techniques in three major fields. We aim for a comprehensive, mathematically sound framework for learning transformation rules in abstract rewriting systems. Furthermore, we develop new methods for stochastic models addressing the often-observed problem of outliers in classification or stochastic time series, and we advance the field of learning theory in various respects.
+Intelligent systems require access to general knowledge about the world and to specific knowledge about the application domain in which they are deployed. The aim of the knowledge representation and engineering topic area of Scads.ai Dresden/Leipzig is to develop suitable languages and formalisms that can be used to represent this knowledge, along with associated reasoning methods and algorithms. Based on these methods, we seek to engineer practical tools that support knowledge engineers in capturing actual knowledge in concrete applications and that make it possible to integrate symbolic knowledge representation into the complex and heterogeneous systems of modern AI.
+Word cloud for the topic area "Knowledge Representation and Engineering"
+
+Research Focus
+At Scads.ai Dresden/Leipzig, we carry out cutting-edge research in various aspects of knowledge representation and engineering such as ontology languages, with an emphasis on description logics and rule-based languages, ontology reasoning and algorithms, ontology-mediated access to large and incomplete data, both exact and approximate, knowledge graphs and Wikidata, non-monotonic reasoning, formal argumentation, explanation of the behaviour of knowledge-based systems, and methods for dealing with heterogeneous and diverse knowledge.
+
+Aims
+Advance the theoretical foundations of ontologies, knowledge representation, knowledge graphs and argumentation frameworks
+Develop methods for explaining the results of knowledge-based AI systems
+Integrate symbolic AI methods with approaches to AI based on machine learning
+Advance the development and deployment of knowledge graphs such as Wikidata
+Provide methods and tools for AI-based access to large and heterogeneous data
+
+
+Research Focus
+Much of the modern work in AI Algorithms and Methods has not developed models that can be easily interpreted, cannot be manipulated via adversarial algorithms, and capture the uncertainty in their predictions. A major focus of our research will be to develop novel scalable algorithms and methods to develop AI that is interpretable, reliable, and captures uncertainty. Another challenge we address is that many algorithms that quantify uncertainty and have reliability guarantees for moderately sized data do not scale to massive data, the computational cost is too high. Using ideas from modern AI, numerical methods, databases, and data structures, we are developing innovative solutions that allow us to scale algorithms that work well for moderate size data to massive data.
+We are also truly interested in the societal implications of AI and the influence of society on AI algorithms. Our research includes ethical and fairness aspects of AI Algorithms. A related problem that is an active area of research is the issue of preserving privacy. For many applications, we may want to preserve privacy, but often there is a cost to the accuracy of predictions when privacy is preserved, we are genuinely interested in this tradeoff and understanding when there is a tradeoff.
+A recent application domain of AI has been to inverse issues and physics-based modeling. An inverse issue is to infer a data-generating model from a set of observations: for example, calculating an image in X-ray computed tomography, source reconstruction in acoustics, or calculating the density of the Earth from measurements of its gravity field. Inverse issues are an active area of research with applications ranging from climate change to monitoring manufacturing processes.
+
+
+3. Big Data Analytics and Engineering
+At Scads.ai Dresden/Leipzig, we conduct research in the area of Big Data Analytics and Engineering. Data is “the new oil” that fuels Machine Learning models and innovation. For building trustful Machine Learning and AI tools it is therefore mandatory to have access to large amounts of high-quality Open Data and Open Models as well as Data Quality and Integration methods to generate this kind of data. Moreover, data needs to be accessible by usable Big Data Analytic tools, scalable methods, and back-ends.
+Topic Areas
+Open Data and Open Models
+Scads.ai Dresden/Leipzig is very active in the creation and maintenance of open data and open models. Open data include knowledge graphs, labeled training data, web data, medical information, and Natural Language Processing (NLP) sources of German texts. We aim to become one of the first a major research centers in Europe to enable researchers to exploit the web at industry scales for AI research and development (i.e. Immersive Web Observatory). Scads.ai Dresden/Leipzig is also active in several consortia of the National Research Data Initiative (NFDI).
+The mission of Scads.ai is to advance research not only by contributing new methods, software, and infrastructure, but also by fostering the creation and publication of valuable datasets. The availability of high-quality, large-scale data has been one of the driving forces of recent AI technologies. Nevertheless, the curation and provisioning of such datasets does not come for free, and requires technical support as well as organizational commitment. 
+Scads.ai Dresden/Leipzig is very active in the creation and maintenance of open data and open models. This includes knowledge graphs, labeled training data, web data, medical information, and Natural Language Processing (NLP) sources of German texts. Scads.ai Dresden/Leipzig is also active in several consortia of the National Research Data Initiative (NFDI).
+
+Publication and archiving open models and training data
+In general, the publication of trained models will be of huge importance for enabling further research and applications in AI, and Scads.ai encourages and supports the publication and archiving of such models from all domains where the project is active.  Some of the largest and most visible results of these efforts are the large knowledge bases DBpedia and Wikidata, both of which are now widely used in AI research and applications (including intelligent agents such as Apple’s Siri and Amazon’s Alexa). Scads.ai is strongly involved in the creation of both resources and the underlying infrastructure. Moreover we develop valuable datasets for evaluation, analysis, and training such as the Dresden Web Table Corpus which consists of 125 million tables extracted from Web pages. Scads.ai researchers are also been active in the Linked Data Benchmark Council2, which publishes open datasets and data generators. 
+
+Data-centric research
+Scads.ai is advancing data-centric research in key application areas of AI. We improve access to data from patient cohorts from all German university hospitals via a national infrastructure being developed within the so-called Medical Informatics Initiative (MII). The universities of Leipzig and Dresden lead or participate in MII consortia (SMITH and MIRACUM and run so-called Data Integration Centers. Researchers at Scads.ai are also contributing to the Immersive Web Observatory, a project that maintains a petascale data center to enable web analytics at the industry level.
+AI open data infrastructure and services
+We offer infrastructure and AI-related services for all project members, but also for researchers at other AI-related German competence centers and research projects. In that direction Scads.ai focuses on research data management over the complete data life cycle. Scads.ai develops related concepts and services in many interdisciplinary projects.
+
+Strategic support of NFDI initiative
+Across all of our open data activities, Scads.ai is linked to the National Research Data Initiative (NFDI), e.g., NFDI4DataScience, NFDI4Health, NFDI4Earth, NFDI4Biodiversity, NFDI4Chem, and NFDI4Cat. 
+
+
+Data Quality and Data Integration
+We develop generic approaches for a largely automated data cleaning and data integration, particularly for the generation and maintenance of large knowledge graphs. Furthermore, we devise active learning techniques to generate large labeled training datasets and develop approaches to leverage large data repositories for Artificial Intelligence and Machine Learning.
+
+Living Lab:
+Welcome to the Living Lab of Scads: A place to experience AI, learn about it and start a conversation. A Living Lab has been created in both Leipzig and Dresden. The labs are approaching our main research topics of Artificial Intelligence, Big Data, and Data Science in a diverse and vibrant way. With this experiment space, a user-centered ecosystem was created that is designed to share current and topical research approaches and results of our center with visitors.
+Practical and everyday problems as well as questions in dealing with new digital technologies are in the focus as well as finding innovative approaches for business and industry. New methods and research results are communicated with and evaluated by our visitors from different target groups. With that, diverse opinions can be immediately included in our research and innovation process. In this context, Scads organizes a number of events for the public in the Living Lab:
+Living Lab
+You want to know more about the Living Lab concept?
+Mission and Practice
+The Living Lab appears as a multi-faceted venue, exhibition space, teaching and education center, and laboratory. It is a vehicle for communication, discovery, development, and evaluation of our research for the public. In this context, our mission is to establish an experience for our visitors, which includes four main components: experiment, evolvement, exploration and evaluation. Our mission and practice applies to both Living Lab locations: TUD Dresden University of Technology and Leipzig University.
+Experiment
+Through independent and guided engagement with our demonstrators in the exhibition space, our center’s research on Artificial Intelligence and Data Science is made vivid, tangible, and therefore understandable by different target groups.
+Evolve
+Emerging developments from the research community are brought together with existing challenges from business and everyday practice. Different perspectives therefore come together to develop innovative scenarios and solutions to these challenges as a team.
+Explore
+We develop new scenarios and requirements for AI in a dialogue with our visitors. The environment of the Living Lab can be a stimulating place of personal development and new encounters, where innovative ideas can unfold and AI can be discovered together.
+Evaluate
+We want to evaluate collected data and user feedback in order to incorporate it into making relevant changes. By engaging in dialogue with our visitors, the Living Lab can grow and flourish as an important place for everyone.
+Behind the scenes
+Get an insight into our research areas, AI, data science and learn more about the technology
+Your Tech Stories
+Your Tech Stories offers a dynamic platform for individuals to share their passion projects in a free format, choosing between presentations, demos, or hands-on experiences. It doesn’t matter if you are a student, scientific employee or tech-enthusiast.
+Hands-On Demonstrator Series
+The Hands-On Demonstrator Series is about showcasing the latest accomplishments, discoveries, improvements and educational tools of the Scads team in the fields of AI, Big Data and Data Science.
+Hackathon Series
+The Living Lab invites you to take part in our Hackathon Series with a wide range of topics. In those events, you will work together with an interdisciplinary team of other participants to solve interesting problems in the areas of Artifiicial Intelligence, Big Data and Computer Science.
+Lecture Series
+Voice assistants, cloud services, and smart applications: the future technologies of Artificial Intelligence are playing an increasingly important role in many areas of society, especially research. In our interdisciplinary online lecture series, current and topical issues are examined from different perspectives.
+Meetup
+Take the opportunity to discover new perspectives, have inspiring conversations and explore potential collaborations at the Meetup. This dynamic exchange platform for local and regional stakeholders offers fascinating insights into our cutting-edge research and invites you to network in a relaxed athmosphere.
+Scads.ai Living Lab in Leipzig und Dresden
+- Nutzungskonzept -
+1.1 Was ist ein Living Lab?
+Ein Living Lab ist eine Forschungsmethode für Co-Innovation [1]. Living Labs werden heutzutage als Forschungsinstrument in verschiedensten Zukunftsfeldern beispielsweise Industrie 4.0, Erneuerbare Energien, Smarte Logistik oder Future Factory eingesetzt. Ein Living Lab baut ein nutzungszentriertes Ökosystem auf, das darauf ausgerichtet ist, aktuelle Forschungsansätze und -ergebnisse mit potenziellen Benutzer*innen und praktischen Problemstellungen zusammenzuführen. Ein wichtiges Ziel ist dabei der schnelle Transfer von Innovationen in die Praxis, z. B. von neuen Methoden oder grundlegenden Forschungsergebnissen. Dabei werden systematisch mögliche Nutzungsgruppen in die Mitgestaltung des Forschungs- und Innovationsprozesses einbezogen[2]. Die in Alter und Bildungsgrad differenzierten Zielgruppen werden durch spezifisch auf sie zugeschnittene Vermittlungsformate und –Methoden angesprochen.
+Zentrale Aktivitäten eines Living Labs umfassen:
+Co-Kreation:
+Neu aufkommende Entwicklungen der wissenschaftlichen Community werden mit bestehenden Herausforderungen aus der Praxis zusammengeführt. Dabei sollen verschiedene Sichtweisen und Anforderungen der möglichen Nutzungsgruppen (z.B. Wissenschaftler*innen, Anwender*innen, Entwickler*innen, Administrator*innen) zusammengebracht werden, um gemeinsamen innovative Szenarien, Konzepte und Lösungen zu entwickeln. Innerhalb eines Living Lab sind die Nutzenden proaktive Co Designer*innen. Sie handeln demnach nicht nur als passive Rezipierende oder einfache Testinstanz.
+Exploration:
+In frühen Entwicklungsphasen werden gemeinsam mit verschiedenen Nutzungsgruppen neue Szenarien und Anforderungen entwickelt. Die Umgebung des Living Labs kann dafür eine anregende Entwicklungs- und Begegnungsstätte darstellen.
+Experimentation:
+Durch Interaktion mit virtuellen oder realitätsnahen Demonstratoren werden initiale Konzepte live erprobt. Im Anschluss können leichter spezifische Anforderungen formuliert werden. Des Weiteren erlaubt die Interaktion, reale Daten zu sammeln, die wiederum zur Verbesserung und Evaluation von Lösungen anwendbar sind.
+Evaluation
+Im Living Lab werden gesammelte Daten und das Feedback der Nutzer*innen hinsichtlich verschiedener Aspekte, wie zum Beispiel Ergonomie, Geschäftsmodelle und auch rechtlicher oder ethischer Aspekte ausgewertet.
+1.2 Was ist das Ziel des Scads.ai-Living Lab?
+Co
+Creation
+Exploration &
+Evaluation
+Die Anforderungsentwicklung (Exploration) und die Bewertung von Produkten, Diensten und Assistenten (Evaluation) erfolgen an Demonstratoren. Die Demonstratoren spiegeln den jeweils aktuellen Stand der Forschung wider. Die Demonstratoren sind räumlich angeordnet und zugänglich.
+Für alle Zielgruppen des Living Lab wird ein Raum bzw. Ort zum Experimentieren angeboten (Experimentation). Der Experimentierbereich ist ein Wissens- und Erlebnisort, an dem Menschen aller Altersklassen und insbesondere die Zielkunden des Living Lab mit allen Sinnen etwas über Technik, Umwelt und sich selbst erfahren können. Mit diesem Angebot soll auf innovative Art und Weise Neugierde und Forschungsdrang gefördert werden. Schließlich wirken Exploration, Evaluation und Experiment als Katalysator für Co Creation. Letzteres ist notwendig, um neue Projekte und Dienstleistungen zu generieren und somit die Forschungsstandorte Leipzig und Dresden zu stärken. Das Scads.ai Living Lab legt inhaltlich den Fokus auf die Themen Künstliche Intelligenz und Big Data. Die Aktivitäten Wissenschaftskommunikation und Ausbildung/Lehre ergänzen das Portfolio.
+Im AI-Demo und Living Lab werden Forschungsprototypen der verschiedenen beteiligten PIs aus Scads u.a. zum Thema Datenintegration, Graph- und
+Datenanalyse, Computer Security, Argumentation, Augmentation und Visualisierung, Streamdatenprozessierung als Demonstratoren gezeigt.
+Zusätzlich sollen einfache reale Use Cases implementiert werden, zunächst in den Bereichen: (1) Additive Fertigung / 3D-Scan und 3D-Druck; (2) Bildanalyse/Matching, Computer-Vision, Gestenerkennung, Indoor-Tracking; (3) Sensordatenanalyse, IoT, Prozess-Mining (4) Computersicherheit u.a. für medizinische Geräte. Diese Use Cases stammen zum Teil aus laufenden Projekten mit Anwendungspartner*innen oder aus Studierendenprojekten mit denen gemeinsam auch am Aufbau und der Entwicklung der Use Cases gearbeitet wird. Für deine beiden Standorte sind im Verlauf des Projekts unterschiedliche Schwerpunktsetzungen möglich.
+Scads.ai Methodenforscher*innen sollen die Möglichkeit bekommen ihre eigenen Entwicklungen anhand der bereitgestellten Testumgebungen im Living Lab zu bewerten und sie in Studien mit Benutzer*innen zu überprüfen.
+Co-Innovation/Co-Creation
+Wie in anderen Living Labs werden auch im Scads.ai-Living Lab verschiedene Interessengruppen aus dem Bereich Big Data und KI in unseren Forschungs- und Innovationsprozess einbezogen. Wir schaffen Möglichkeiten zur gemeinsamen Erstellung, Erforschung, Erprobung und Evaluation innovativer Ideen für Anwendungsfälle von Künstlicher Intelligenz. Dabei sollen auch die entwickelten Big-Data-Dienste aus der ersten Förderphase von Scads Dresden/Leipzig evaluiert und ausprobiert werden
+Nach der Inbetriebnahme des Living Lab planen wir mittelfristig weitere Industriepartner*innen einzubeziehen und ihnen zu ermöglichen, das Lab entsprechend mit für unsere Forschung interessanter Hardware und Demonstratoren auszustatten. Dieser Mitmach-Effekt war bereits im Betrieb anderer Living Labs sehr erfolgreich (z.B. Logistics Living Lab in Leipzig, Future Factory Living Lab in Dresden oder des Ubineums in Zwickau) und soll auch das Living Lab in Leipzig und Dresden voranbringen.
+Kommunikation und Transfer von Forschungsergebnissen
+Als weiteres Ziel streben wir eine verbesserte Wissenschaftskommunikation für die KI Forschung an. Dabei geht es um die verständliche und anschauliche Kommunikation wissenschaftlicher Arbeit und wissenschaftlicher Ergebnisse, sowohl innerhalb der Wissenschaft als zwischen Wissenschaft und Öffentlichkeit. Forschungsergebnisse des Scads und für die Zielgruppe relevante Themen aus Big Data und der Künstlichen Intelligenz sollen zielgruppenspezifisch aufbereitet, erklärt und präsentiert werden. 
+Hier besteht unserer Ansicht nach großer Nachholbedarf in der Aufklärung zur Funktionsweise und Anwendbarkeit dieser Technologien.
+Basierend auf Scads.ai-Methoden werden Big Data- und KI-Anwendungsfälle in Testumgebungen implementiert (z.B. unter Verwendung von Kameras, Sensoren oder IOT-Geräten), um sie einer breiten Öffentlichkeit zugänglich zu machen. Dies beinhaltet u.a. das interaktive Experimentieren mit KI-Methoden für die Graphanalyse, Datenintegration, Wissensrepräsentation, Argumentation, Security und Computer Vision.
+Zusätzlich werden kleine Laborumgebungen für typische KI-Anwendungsfälle konstruiert, in denen KI-Methoden in Zukunft erhebliche Auswirkungen haben können. Im gemeinsamen Austausch mit Anwender*innen sowie der Politik und Gesellschaft zeigen wir Chancen und Risiken auf und diskutieren aber auch ethische sowie rechtliche Fragestellungen. Vor allem ethische Fragen können bereits in einer frühen Phase der Forschung auftreten. Wir laden Akteur*innen aus Gesellschaft und Politik zu Veranstaltungen und Workshops ein und informieren sie mit Hilfe der Demonstratoren und Szenarien über die bestehenden Herausforderungen, 
+aber auch über Chancen und Innovationspotentiale. Das Living Lab bietet darüber hinaus auch die Möglichkeit internationalen Gästen aktuelle Forschungsergebnisse des Scads.ai zu präsentieren und somit die Sichtbarkeit von deutscher KI-Forschung international zu verbessern. Zusätzlich sollen Teile des Living Labs in internationalen Roadshows zum Einsatz kommen. Der Verleih von Exponaten kann die nationale und internationale Sichtbarkeit des Scads.ai zusätzlich stärken. In regelmäßigen öffentlichen Veranstaltungen sind auch interessierte Bürger*innen willkommen, sich einen Eindruck von der Arbeit des Zentrums zu machen und um sich über Möglichkeiten sowie Risiken von Künstlicher Intelligenz zu informieren. 
+Dabei können sie zum einen wissenschaftlich fundierte Informationen über Chancen und Risiken von Künstlicher Intelligenz erhalten und zum anderen in einen offenen Dialog mit den Forschenden des Zentrums treten.
+Ausbildung und Lehre
+Neben Co-Innovation und Kommunikation soll das Living Lab für Ausbildung und Lehre im Bereich KI und Data Science eingesetzt werden. Die erstellten Testumgebungen werden in Lehrveranstaltungen und in Scads.ai-Schulungen einbezogen. Scads bietet bereits Schulungen für Big Data und KI über sein Service-Center an, das zukünftig um praktische Komponenten im Living Lab erweitert wird. Teilnehmende (z.B. Studierende, Praxispartner*innen) erwerben Fähigkeiten und Erfahrungen zur Datensammlung, z. B. Mithilfe realer Sensoren und werten die gesammelten Daten aus. 
+Dabei können Teilnehmende ihre erworbenen Kenntnisse der KI/ Big-Data-Technologie direkt anwenden. Auf diesem Weg hoffen wir auch interessierte Fachkräfte aus Unternehmen ansprechen zu können.
+Das Living Lab wird Hackathons, Makeathons und Schulungen veranstalten sowie IT Fachkräfte einladen, um mit KI-Methoden zu experimentieren und KI-Wissen in praktischen Szenarien zu erwerben. Ausgewählte Studierende können in Praktika über einen längeren Zeitraum mit der Infrastruktur des Living Labs experimentieren und wertvolle praktische Erfahrungen sammeln.
+1.3 Welche Zielgruppen wollen wir bedienen?
+Das Living Lab dient dem Transfer von Wissen und Fertigkeiten in die Praxis. Die regional und überregional ansässigen Produktions- und Dienstleistungsunternehmen sind Adressat*innen. Wir erwarten aber darüber hinaus ein breites Spektrum an Besucher*innen. Dazu zählen Forschungspartner*innen, z.B. aus dem universitären Umfeld und Forschungsinstituten, Studierende und Projektträger*innen z.B. beim Bundesforschungsministerium oder SMWA. Interessierte Unternehmen sollen beim Besuch des Living Labs für zukünftige gemeinsame Arbeiten oder Forschungsprojekte gewonnen werden. 
+Zur Zielgruppe gehören auch Entwickler*innen/Expert*innen im Bereich KI und Fachkräfte aus der Industrie die selbst Knowhow aufbauen möchten. Das Living Lab spricht auch Bürger*innen und Schüler*innen sowie gesellschaftliche Vertreter*innen wie z.B. Verbraucherzentralen, Gewerkschaften, oder aus den Sozialwissenschaften etc. an.
+1.4 Welche Veranstaltungsformen sind geplant?
+Je nach Zielgruppe sollen verschiedene Veranstaltungsformen entwickelt werden.
+Meetups
+Meetups haben sich in den letzten Jahren vor allem im IT-Sektor etabliert, um gleichgesinnte Softwareentwickler*innen zu einem Thema zusammenzubringen. Meist werden Meetups in lockerer Atmosphäre in den Abendstunden abgehalten. Gemeinsam mit einer bestehenden Meetup-Gruppe aus Dresden zum Thema Big Data hat Scads im letzten Jahr die Meetup-Gruppe „Big Data and AI Saxony“ (https://www.meetup.com/de-DE/Big-Data-and-AI-Saxony/) gegründet. Die Gruppe hat bereits über 570 Mitglieder*innen, die zu einem großen Teil aus Forscher*innen und Entwickler*innen bestehen. 
+Weiterhin hat sich in den letzten Jahren im Dresdneruniversitären Umfeld die „Machine Learning Community“ (MLC) als Interessengruppe etabliert, in der auch Leipziger Wissenschaftler*innen aktiv sind, die als potentielle Teilnehmer*innen von Veranstaltung angesprochen werden. Wir planen zukünftig regelmäßig alle 2-3 Monate im Living Lab ein Meetup zu organisieren. Zwei eingeladene Sprecher*innen berichten in Vorträgen über spannende Themen aus dem Umfeld der Künstlichen Intelligenz oder demonstrieren neue Technologien im Lab. 
+Im Nachhinein geben wir dann Zeit zum Kennenlernen und zur Diskussion. Die Umgebung des Living Labs bietet die Möglichkeit nebenbei Forschungsergebnisse zu präsentieren und es eröffnen sich Möglichkeiten zum Transfer. 

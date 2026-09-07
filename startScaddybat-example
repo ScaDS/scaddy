@@ -1,0 +1,65 @@
+@echo off
+REM === Configuration ===
+set SSH_USER=[user]
+set SSH_HOST=[ip]                         REM <- IP des Zielservers
+set SSH_PASSWORD=[password]               REM <- Passwort
+set DOCKER_PROJECT=scaddy
+set DOCKER_PATH=
+set BROWSER_URL=https://ip:8112    REM <- Webadresse deiner Scaddy-Anwendung
+
+REM === Prüfe, ob plink.exe vorhanden ist ===
+where plink.exe >nul 2>&1
+if %ERRORLEVEL% NEQ 0 (
+    echo Fehler: plink.exe wurde nicht gefunden. Bitte plink installieren und in den PATH legen.
+    pause
+    exit /b
+)
+
+REM Check if the Docker stack is already running
+echo Checking if the Docker stack is already running...
+set STACK_STATUS=
+for /f "tokens=*" %%i in ('plink -batch -pw %SSH_PASSWORD% %SSH_USER%@%SSH_HOST% "docker ps -q -f label=com.docker.compose.project=%DOCKER_PROJECT%"') do set STACK_STATUS=%%i
+
+if "%STACK_STATUS%" == "" (
+    echo Docker stack is not running, starting now...
+    echo y | plink -batch -pw %SSH_PASSWORD% %SSH_USER%@%SSH_HOST% "cd %DOCKER_PATH% && docker compose -p %DOCKER_PROJECT% up -d"
+    echo Docker stack started.
+) else (
+    echo Docker stack is already running. Not starting again.
+)
+
+REM Warte, damit der Stack genug Zeit zum Starten hat
+timeout /t 12
+
+REM Starte Firefox (Passe den Pfad an, falls nötig!)
+set FIREFOX_PATH="C:\Program Files\Mozilla Firefox\firefox.exe"
+if not exist %FIREFOX_PATH% (
+    set FIREFOX_PATH="C:\Program Files (x86)\Mozilla Firefox\firefox.exe"
+)
+if not exist %FIREFOX_PATH% (
+    echo Fehler: Firefox wurde nicht gefunden! Bitte installiere Firefox oder passe den Pfad an.
+    pause
+    exit /b
+)
+
+start "" %FIREFOX_PATH% %BROWSER_URL%
+
+REM Warte kurz, bis der Browser offen ist
+timeout /t 2
+
+REM Überwache den Browser-Prozess
+:WATCH_BROWSER
+tasklist /FI "IMAGENAME eq firefox.exe" | find /I "firefox.exe" >nul
+if %errorlevel% == 0 (
+    REM Browser läuft noch, prüfe in 5 Sekunden erneut
+    timeout /t 5
+    goto WATCH_BROWSER
+)
+
+REM Stoppe den Docker Stack via SSH, wenn Browser zu ist
+echo Browser geschlossen. Stopping Docker stack...
+plink -batch -pw %SSH_PASSWORD% %SSH_USER%@%SSH_HOST% "docker compose -p %DOCKER_PROJECT% stop"
+
+echo Vorgang abgeschlossen. Du kannst dieses Fenster nun schließen.
+pause
+exit

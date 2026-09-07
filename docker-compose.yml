@@ -1,0 +1,39 @@
+services:
+  scaddy-backend:
+    build: .
+    image: scaddy-team-publish-test:latest
+    container_name: scaddy-team-publish-test
+    ports:
+      - "8112:8112"
+    environment:
+      - SCADS_AI_HPC_API_KEY=${SCADS_AI_HPC_API_KEY}
+      - TORCH_HOME=/app/runtime/models/torch
+      - HF_HOME=/app/runtime/models/hf
+      - PYTHONUNBUFFERED=1
+      - NVIDIA_VISIBLE_DEVICES=all
+    volumes:
+      - ./data:/app/data
+      - ./runtime:/app/runtime
+      - ./config:/app/config
+      - ./frontend/static:/app/frontend/static
+      - ./ssl_certificate:/app/ssl_certificate
+      - ./admin/templates:/app/admin/templates
+    networks:
+      - scaddy_net # own subnet to avoid conflicts with other Docker networks
+    env_file:
+      - .env
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    # If you encounter problems, use this instead:
+    # runtime: nvidia
+networks:
+  scaddy_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.250.0/24

@@ -1,0 +1,42 @@
+# Secrets / Env
+.env
+.env.*
+ssl_certificate/
+
+# Git
+.git
+.gitignore
+.gitmodules
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.venv/
+venv/
+
+# Daten & Caches
+runtime/
+data/
+**/.cache/
+**/models/
+**/snapshots/
+*.safetensors
+*.bin
+*.pt
+
+# Node
+node_modules/
+
+# Build artifacts
+*.egg-info/
+dist/
+build/
+
+# Development
+autonomous-control/
+scaddy-team-venv/
+.ruff_cache/
+.pytest_cache/

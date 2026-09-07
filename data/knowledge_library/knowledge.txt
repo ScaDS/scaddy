@@ -1,0 +1,18 @@
+Beispiel-Wissensbasis für Scaddys CAG (Cache-Augmented Generation).
+
+ERSETZE DIESEN INHALT mit deinem eigenen Domänenwissen.
+Die Datei wird als Kontext in das LLM-Prompt eingebettet und über
+/admin/config -> "Wissen bearbeiten" editierbar.
+
+Aufbau:
+- Organisation: Name, Standorte, Gründungsjahr, Mission
+- Forschungsbereiche / Projekte
+- Einrichtungen (z.B. Living Lab, Exponate)
+- FAQ: Häufige Fragen und Antworten
+- Kontakt und Öffnungszeiten
+
+Beispiel-Eintrag:
+F: Was ist das Living Lab?
+A: Das Living Lab ist ein offener Forschungs- und Demonstrationsraum.
+   Besucher können hier neue Technologien interaktiv erleben und
+   Forschende erhalten Feedback aus der Praxis.

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scaddy Admin Panel</title>
+    <style>
+        .config-label {
+            font-family: sans-serif;
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: block;
+            font-weight: bold;
+        }
+        .config-hint {
+            font-family: sans-serif;
+            font-size: 13px;
+            color: #666;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .config-input {
+            padding: 6px;
+            font-size: 14px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .config-select {
+            padding: 6px;
+            font-size: 14px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .config-submit {
+            padding: 10px 20px;
+            font-size: 14px;
+            background: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .config-submit:hover {
+            background: #1976D2;
+        }
+    </style>
+</head>
+<body>
+    <h2>🛠️ Scaddy Admin Panel</h2>
+
+    <form method="post" action="/admin/update_config">
+        <label class="config-label">🤖 LLM Model</label>
+        <span class="config-hint">The model name sent to your LLM endpoint. This is read on every request (hot-reload). Change this to switch models without restarting the container.</span>
+        <input class="config-input" type="text" name="llm_model" id="llm_model"
+               value="{{ llm_model or 'openai/gpt-oss-120b' }}"
+               placeholder="openai/gpt-oss-120b"
+               required>
+        <br><br>
+
+        <label class="config-label">🗣️ STT Mode (restart required!)</label>
+        <span class="config-hint">If enabled, Scaddy uses local faster-whisper for speech-to-text. If disabled, it uses the OpenAI Whisper API (requires STT_API_KEY in .env).</span>
+        <label>
+            <input type="checkbox" name="stt_local" {% if stt_enabled %}checked{% endif %}>
+            Use local faster-whisper
+        </label>
+        <br><br>
+
+        <label class="config-label">🔊 TTS Voice</label>
+        <span class="config-hint">Voice name for the OpenAI-compatible /v1/audio/speech API. Valid values depend on your TTS server (e.g., alloy, echo, fable, onyx, nova, shimmer for OpenAI, or OmniVoice-specific names for llm.scads.ai). Read per-request (hot-reload).</span>
+        <input class="config-input" type="text" name="tts_voice" id="tts_voice"
+               value="{{ tts_voice or 'alloy' }}"
+               placeholder="alloy"
+               required>
+        <br><br>
+
+        <button type="submit" class="config-submit">💾 Save Configuration</button>
+    </form>
+
+    <br>
+    <hr>
+
+    <h3>📦 Visual Embeddings Management</h3>
+    <span class="config-hint">Manage the CLIP embeddings database (visRAG). Delete embeddings you no longer need. The database is at <code>data/embeddings/embeddings.json</code>.</span>
+    <form id="embeddingForm" method="post" action="/admin/delete_embedding" onsubmit="return confirmDelete();">
+        <label for="embedding_key">Saved Embeddings:</label><br/>
+        <select name="embedding_key" id="embedding_key" required>
+            {% for key in embedding_keys %}
+              <option value="{{ key }}">{{ key }}</option>
+            {% endfor %}
+        </select>
+        <br><br/>
+        <button type="submit">🗑️ Delete Selected Embedding</button>
+    </form>
+
+    <script>
+    function confirmDelete() {
+        const key = document.getElementById('embedding_key').value;
+        return confirm(`Are you sure you want to delete the embedding "${key}"?`);
+    }
+    </script>
+
+    {% if request.query_params.get("deleted") %}
+    <script>
+        alert("✅ Embedding deleted successfully.");
+    </script>
+    {% endif %}
+
+    <hr>
+
+    <h3>🧠 CAG Knowledge Base</h3>
+    <span class="config-hint">Edit the knowledge base (knowledge.txt) that is loaded into the LLM context for CAG (Cache-Augmented Generation). The file is at <code>data/knowledge_library/knowledge.txt</code>.</span>
+    <form method="get" action="/admin/edit_cag">
+        <button type="submit">✏️ View & Edit Knowledge (knowledge.txt)</button>
+    </form>
+</body>
+</html>

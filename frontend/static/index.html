@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scaddy</title>
+  <script type="text/javascript" src="/static/translations.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/static/index.css">
+</head>
+<body>
+  <div id="app">
+    <div class="topbar">
+      <button @click="toggleChatView()" :class="`button neutral small ${chatview ? 'active' : ''}`">
+        {{ transl.btn_chat_history[lang] }}
+        <i class="fa-solid fa-comments"></i>
+      </button>
+      <button @click="toggleCameraView()":class="`button neutral small ${cameraview ? 'active' : ''}`">
+        {{ transl.btn_vision_mode[lang] }}
+        <i class="fa-solid fa-camera"></i>
+      </button>
+      <button @click="toggleKnowledgeView()" :class="`button neutral small ${knowledgeview ? 'active' : ''}`">
+        {{ transl.btn_add_knowledge[lang] }}
+        <i class="fa-solid fa-brain"></i>
+      </button>
+      <button @click="resetChatHistory()" class="button small left" :class="chatHistory.length < 2 ? 'neutral' : 'confirm'">
+        <span v-if="chatHistory.length > 1">{{ transl.btn_start_fresh[lang] }}</span>
+        <i class="fa-solid fa-backward-fast"></i>
+      </button>
+      <label class="switch">
+        <input type="checkbox" @click="toggleLanguage()">
+        <span class="slider round"></span>
+        <span class="slider-label left">DE</span>
+        <span class="slider-label right">EN</span>
+      </label>
+
+    </div>
+    <div class="container">
+      <div :class="`scaddy-container ${(chatview || cameraview || knowledgeview) ? 'split-view-active' : ''}`">
+        <div :class="`sphere ${isPlaying ? 'playing' : 'idle'}`" ref="sphere" @click="pokeScaddy()">
+          <i v-if="isRecording" class="fa-solid fa-ear-listen"></i>
+          <i v-if="isThinking" class="fa-solid fa-brain"></i>
+          <i v-if="!(isThinking || isRecording) && cameraview" class="fa-solid fa-camera"></i>
+          <i v-if="!(isThinking || isRecording) && knowledgeview" class="fa-solid fa-brain"></i>
+        </div>
+        <div class="subtitles">
+          <transition name="fade" mode="out-in">
+            <div :key="currentSubtitle">{{ currentSubtitle }}</div>
+          </transition>
+        </div>
+        <div class="control-buttons">
+          <span v-if="isPlaying">
+            <button @click="stopPlaying()" class="button cancel">{{ transl.btn_stop[lang] }}</button>
+          </span>
+          <span v-if="!isRecording && !isThinking">
+            <button @click="startRecording()" class="button">{{ transl.btn_talk_to_scaddy[lang] }} <i class="fa-solid fa-microphone"></i></button>
+          </span>
+          <span v-if="isThinking">
+            <button @click="stopPlaying()" class="button cancel">{{ transl.btn_cancel[lang] }}</button>
+          </span>
+          
+          <button v-if="isRecording" @click="cancelRecording()" class="button cancel">{{ transl.btn_cancel[lang] }}</button>
+          <button v-if="isRecording & !cameraview" @click="sendRecording()" class="button">{{ transl.btn_send_recording[lang] }}<i class="fa-solid fa-paper-plane"></i></button>
+          <button v-else-if="isRecording & cameraview" @click="sendRecording(includePicture=true)" class="button">
+            {{ transl.btn_send_recording_and_picture[lang] }}
+            <i class="fa-solid fa-camera"></i>
+          </button>
+        </div>
+      </div>
+
+      <div  :class="`right-container chat ${chatview ? 'split-view-active on-enter' : 'on-leave'}`">
+        <button @click="toggleChatView()" class="button light close">
+          <i class="fa-solid fa-times"></i>
+        </button>
+        <button @click="playChatViewHelp()" class="button light help">
+          <i class="fa-solid fa-question"></i>
+        </button> 
+        <div ref="chatContainer" class="messages">
+          <div v-for="message in chatHistory" key="message.text" :class="`message ${message.sender == 'user' ? 'user' : message.sender == 'system' ? 'system' : 'scaddy'}`">
+            <span v-if="message.text">{{ message.text }}</span>
+            <img v-if="message.image" :src="message.image" alt="Captured image"/>
+          </div>
+        </div>
+      </div>
+
+      <div ref="cameraContainer" :class="`right-container camera ${cameraview ? 'split-view-active on-enter' : 'on-leave'}`">
+        <button @click="toggleCameraView()" class="button light close">
+          <i class="fa-solid fa-times"></i>
+        </button>
+        <button @click="playVisionModeHelp()" class="button light help">
+          <i class="fa-solid fa-question"></i>
+        </button> 
+        <div class="viewfinder">
+          <video ref="cameraStream" autoplay playsinline :class="`${selectedCameraMode === 'user' ? 'flipped' : ''}`"></video>
+          <button @click="switchCamera()" class="button light" style="z-index: 1000;">
+            <i class="fa-solid fa-camera-rotate"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- new container for adding knowledge to visRAG [OW 250704] -->
+      <div :class="`right-container knowledge ${knowledgeview ? 'split-view-active on-enter' : 'on-leave'}`">   
+        <button @click="toggleKnowledgeView()" class="button light close">
+          <i class="fa-solid fa-times"></i>
+        </button>
+        <button @click="playKnowledgeHelp()" class="button light help">
+          <i class="fa-solid fa-question"></i>
+        </button> 
+      
+        <div class="knowledge-interface">
+          <!-- Bildvorschau -->
+          <div class="image-preview">
+            <div class="viewfinder" v-if="!knowledgeImage">
+              <video ref="knowledgeVideo" autoplay playsinline 
+                :class="`${selectedCameraMode === 'user' ? 'flipped' : ''}`"
+              ></video>
+              <button @click="switchCamera()" class="button light">
+                <i class="fa-solid fa-camera-rotate"></i>
+              </button>
+            </div>
+            <img
+              v-if="knowledgeImage"
+              :src="knowledgeImage"
+              alt="Captured"
+              style="max-width: 100%; max-height: 100%; object-fit: contain;"
+              :class="`${selectedCameraMode === 'user' ? 'flipped' : ''}`"
+            />
+          </div>
+        
+          <!-- Kameraaufnahme -->
+          <div class="button-row">
+            <button v-if="!knowledgeImage" @click="takeKnowledgePicture()" class="button small">📸 {{ transl.btn_take_picture[lang] }}</button>
+            <button v-if="knowledgeImage" @click="resetKnowledgeImage()" class="button small cancel">🗑️ {{ transl.btn_reset[lang] }}</button>
+          </div>  
+
+          <!-- STT/Text -->
+          <div v-if="knowledgeImage" class="text-preview">
+            <p v-if="isRecordingKnowledge" class="text">{{ transl.lbl_recording_image_description[lang] }}</p>
+            <p v-else class="text">{{ knowledgeText || transl.lbl_whats_in_the_image[lang] }}</p>
+          </div>
+          <div v-if="knowledgeImage" class="button-row">
+            <button
+              @click="toggleKnowledgeRecording()"
+              class="button small">
+              <span v-if="!isRecordingKnowledge">🎤 {{ transl.btn_start_recording[lang] }}</span>
+              <span v-if="isRecordingKnowledge">🎤 {{ transl.btn_finish_recording[lang] }}</span>
+            </button>
+            <button v-if="knowledgeText" @click="resetKnowledgeText()" class="button small cancel">🗑️ {{ transl.btn_reset[lang] }}</button>
+          </div>
+        
+          <!-- Confirm Button -->
+          <div v-if="knowledgeImage && knowledgeText && knowledgeText != 'Keine Sprache erkannt.'" class="confirm-button">
+            <button class="button confirm" @click="confirmKnowledgeEntry()">
+              <span v-if="confirmSuccess">👍</span>
+              <span v-else>✅ {{ transl.btn_confirm_knowledge[lang] }}</span>
+            </button>            
+          </div>
+        </div>        
+      </div>
+      
+      <button @click="playMainViewHelp()" class="button light help main-help-button">
+          <i class="fa-solid fa-question"></i>
+      </button> 
+    </div>
+
+    <div :class="`recent-image-overlay ${showRecentImage ? 'show' : ''}`">
+      <img :src="recentImage" alt="Recently captured image"/>
+    </div>
+    
+    <audio v-show="false" controls ref="audioPlayer" crossorigin="anonymous"></audio>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          lang: 'de',
+          transl: transl,
+
+          chatview: false,
+          cameraview: false,
+
+          isThinking: false,
+          isPlaying: false,
+          isRecording: false,
+          wsConnected: false,
+
+          microphoneStream: null,
+          recorder: null,
+          audioChunks: [],
+
+          websocket: null,
+          shouldPlay: false,
+          audioQueue: [],
+          
+          spokenText: "",
+          showSubtitle: true,
+
+          chatHistory: [],
+
+          audioContext: null,
+          analyser: null,
+          animationFrameId: null,
+
+          cameraStream: {
+            user: null,
+            environment: null,
+          },
+          selectedCameraMode: null,
+          defaultCameraMode: 'environment',
+
+          recentImage: null,
+          showRecentImage: false,
+
+          /* last changes [OW 250704] */
+          knowledgeview: false,
+          knowledgeImage: null,
+          knowledgeText: "",
+          isRecordingKnowledge: false,
+          mediaRecorderKnowledge: null,
+          audioStreamKnowledge: null,
+          confirmSuccess: false,
+
+        };
+      },
+      async mounted() {
+        this.connectWebSocket();
+        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        this.analyser = this.audioContext.createAnalyser();
+        this.analyser.fftSize = 256;
+
+        // Load saved data on mount
+        this.loadChatHistory();
+        this.loadViewStates();
+
+        this.setupMicrophone()
+      },
+      beforeUnmount() {
+        this.stopVisualization();
+        if (this.audioContext) this.audioContext.close();
+        this.deactivateMicrophone();
+      },
+      computed: {
+        splitview() {
+          return this.chatview || this.cameraview
+        },
+        currentSubtitle() {
+          if (this.spokenText != '') return this.spokenText;
+          if (this.isRecording) return this.transl.lbl_listening[this.lang];
+          if (this.isThinking) return this.transl.lbl_thinking[this.lang];
+          if (this.chatHistory.length < 2) return this.transl.txt_hello[this.lang];
+          return ""; // No subtitle when idle
+        }
+      },
+      watch: {
+        chatHistory: {
+          handler() {
+            this.saveChatHistory();
+          },
+          deep: true
+        },
+        chatview() {
+          this.saveViewStates();
+        },
+        cameraview() {
+          this.saveViewStates();
+        }
+      },
+      methods: {
+        // Save chat history to localStorage
+        saveChatHistory() {
+          try {
+            localStorage.setItem('scaddy-chat-history', JSON.stringify(this.chatHistory));
+          } catch (error) {
+            console.error('Error saving chat history:', error);
+          }
+        },
+
+        // Load chat history from localStorage
+        loadChatHistory() {
+          try {
+            const saved = localStorage.getItem('scaddy-chat-history');
+            if (saved) {
+              this.chatHistory = JSON.parse(saved);
+            }
+          } catch (error) {
+            console.error('Error loading chat history:', error);
+            this.chatHistory = []; // Reset to empty array if loading fails
+          }
+        },
+        async resetChatHistory() {
+
+          if (!confirm(this.transl.lbl_confirm_reset_chat[this.lang])) {
+            return;
+          }
+    
+          this.chatHistory = [];
+          this.chatSendMessage('system', this.transl.lbl_new_chat[this.lang]);
+          try {
+            this.stopPlaying();
+            this.cancelRecording();
+          } catch (error) {
+            console.log('Error stopping audio features:', error);
+          }
+          
+          
+          // Clear from localStorage
+          try {
+            localStorage.removeItem('scaddy-chat-history');
+          } catch (error) {
+            console.error('Error clearing chat history from storage:', error);
+          }
+          
+          try {
+            const response = await fetch('/reset', {
+              method: 'POST',
+            });
+            if (!response.ok) throw new Error('Failed to reset');
+          } catch (error) {
+            console.error('Error resetting:', error);
+            alert('Failed to reset.');
+          }
+        },
+        chatSendMessage(sender, text) {
+          this.chatHistory.push({sender: sender, text: text});
+          this.scrollToBottom()
+          if (sender == 'system') {
+            this.addToBackendConversationProtocol(sender, text)
+          }
+        },
+        // Save view states to localStorage
+        saveViewStates() {
+          try {
+            const viewStates = {
+              chatview: this.chatview,
+              cameraview: this.cameraview
+            };
+            localStorage.setItem('scaddy-view-states', JSON.stringify(viewStates));
+          } catch (error) {
+            console.error('Error saving view states:', error);
+          }
+        },
+
+        // Load view states from localStorage
+        loadViewStates() {
+          try {
+            const saved = localStorage.getItem('scaddy-view-states');
+            if (saved) {
+              const viewStates = JSON.parse(saved);
+              this.chatview = viewStates.chatview || false;
+              this.cameraview = viewStates.cameraview || false;
+              
+              // If camera view was active, reactivate the camera
+              if (this.cameraview) {
+                this.activateCamera();
+              }
+            }
+          } catch (error) {
+            console.error('Error loading view states:', error);
+          }
+        },
+        async connectWebSocket() {
+            const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+            console.log(`[WS] Verbinde zu ${protocol}://${window.location.host}/ws`);
+            this.websocket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+
+            this.websocket.onopen = () => {
+              console.log("[WS] ✓ Verbunden");
+              this.wsConnected = true;
+            };
+
+            this.websocket.onclose = (event) => {
+              console.log(`[WS] ✗ Getrennt (code=${event.code}, reason='${event.reason}', clean=${event.wasClean})`);
+              this.wsConnected = false;
+            };
+
+            this.websocket.onerror = (error) => {
+              console.error("[WS] ✗ FEHLER:", error);
+              console.error("[WS] URL:", this.websocket.url);
+              console.error("[WS] ReadyState:", this.websocket.readyState, "(0=CONNECTING, 1=OPEN, 2=CLOSING, 3=CLOSED)");
+            };
+
+            this.websocket.onmessage = async (event) => {
+              try {
+                  const message = JSON.parse(event.data);
+                  console.log(`[WS] ◀ Nachricht empfangen: type='${message.type}'`);
+
+                  //switchcase for different message types
+                  switch (message.type) {
+                    case "stt_result":
+                      console.log(`[WS] ◀ STT-Ergebnis: '${message.text}'`);
+                      if (message.text === 'vad_service_error_no_voice') {
+                        this.chatSendMessage('user', this.transl.lbl_vad_service_no_voice[this.lang])
+                      } else {
+                        this.chatSendMessage('user', message.text)
+                      }
+                      break;
+                    case "scaddy_answer":
+                      console.log(`[WS] ◀ Scaddy-Antwort: '${(message.text || '').substring(0, 100)}...'`);
+                      this.processAndPlayTTSForScaddyText(message.text)
+                      break;
+                    case "tts_sentence": //!deprecated!
+                      this.chatSendMessage('scaddy', message.text)
+                      this.addTTSAudioToAudioQueue(message)
+
+                      if (!this.isPlaying) this.playNextAudio();
+                      break;
+                    default:
+                      console.log("[WS] ◀ Unbekannter Typ:", JSON.stringify(message));
+                  }
+              } catch (error) {
+                  console.error("[WS] ✗ Fehler beim Verarbeiten:", error);
+                  console.error("[WS] Rohdaten:", event.data);
+              }
+            };
+        },
+        toggleLanguage() { 
+          this.lang = this.lang === 'de' ? 'en' : 'de'
+          fetch(`/set_language?lang=${this.lang}`, {
+            method: "POST"
+          });
+        },
+        toggleChatView() {
+          this.knowledgeview = false;
+          if (this.chatview) {
+            this.chatview = false;
+          } else {
+            this.cameraview = false;
+            this.stopCamera();
+            this.chatview = true;
+          }
+          this.$nextTick(() => {
+            this.scrollToBottom();
+          });
+        },
+        toggleCameraView() {
+          this.chatview = false;
+          if (this.knowledgeview) {
+            this.knowledgeview = false;
+            this.stopCamera();
+          }
+
+          if (this.cameraview) {
+            this.cameraview = false;
+            this.stopCamera();
+          } else {
+            this.cameraview = true;
+            this.activateCamera();
+          }
+        },
+        async activateCamera(cameraType = this.defaultCameraMode) {
+          try {
+            this.cameraStream.environment = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: 'environment' } } });
+          } catch (error) {
+            console.warn('Error accessing environment camera:', error);
+          }
+          try {
+            this.cameraStream.user = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: 'user' } } });
+          } catch (error) {
+            console.warn('Error accessing user camera:', error);
+          }
+          if (!this.cameraStream.environment && !this.cameraStream.user) {
+            console.log('Falling back to any available cameras.')
+            this.cameraStream.environment = await navigator.mediaDevices.getUserMedia({ video: { facingMode:  'environment'  } });
+            this.cameraStream.user = await navigator.mediaDevices.getUserMedia({ video: { facingMode:  'user'  } });
+            this.defaultCameraMode = 'user'
+            cameraType = this.defaultCameraMode
+          }
+
+          try {
+            let videoElement
+            if (this.cameraview) {
+              videoElement = this.$refs.cameraStream; 
+            } else if (this.knowledgeview) {
+              videoElement = this.$refs.knowledgeVideo;
+            }
+            
+            if (this.cameraStream[cameraType] !== null) { //check if desired camera is available
+              videoElement.srcObject = this.cameraStream[cameraType];
+              this.selectedCameraMode = cameraType
+            } else {
+              const oppositeCameraMode = this.cameraFacingModeOpposite(cameraType)
+              videoElement.srcObject = this.cameraStream[oppositeCameraMode];
+              this.selectedCameraMode = oppositeCameraMode
+            }
+          } catch (error) {
+            console.error('Error accessing camera:', error);
+            alert('Unable to access the camera.');
+          }
+        },
+        switchCamera() {
+          const newCameraMode = this.cameraFacingModeOpposite(this.selectedCameraMode)
+          this.activateCamera(newCameraMode);
+        },
+        cameraFacingModeOpposite(facingMode) {
+          return facingMode === 'user' ? 'environment' : 'user';
+        },
+        stopCamera() {
+          if (this.cameraStream.user) {
+            this.cameraStream.user.getTracks().forEach(track => track.stop());
+            this.cameraStream.user = null;
+          }
+          if (this.cameraStream.environment) {
+            this.cameraStream.environment.getTracks().forEach(track => track.stop());
+            this.cameraStream.environment = null;
+          }
+        },
+        async processAndPlayTTSForScaddyText(text) {
+          if (!this.audioShouldPlay) return;
+
+          let answerSentences = text.split(/#pause#/);
+
+          let cleanedSentences = answerSentences.map(sentence => sentence.trim()).filter(sentence => sentence !== '');
+          console.log('scaddy_answer split sentences', cleanedSentences)
+          for (const [index, sentence] of cleanedSentences.entries()) {
+            if (!this.audioShouldPlay) return;
+
+            const response = await fetch("/tts_single_sentence", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                text: sentence,
+              })
+            });
+            if (!response.ok) {
+                console.error(`HTTP error! status: ${response.status}`);
+            }
+            if (!this.audioShouldPlay) return;
+            if (index == 0) {
+              const answerForChat = answerSentences.join('');
+              this.chatSendMessage('scaddy', answerForChat)
+            }
+
+            const message = await response.json();
+
+            this.addTTSAudioToAudioQueue(message)
+
+            if (!this.isPlaying) {
+                this.playNextAudio();
+            }
+          }
+        },
+        addTTSAudioToAudioQueue(message) {
+          if (!this.audioShouldPlay) return;
+          // Decode base64 audio
+          const audioData = atob(message.audio);
+          const arrayBuffer = new ArrayBuffer(audioData.length);
+          const uint8Array = new Uint8Array(arrayBuffer);
+
+          for (let i = 0; i < audioData.length; i++) {
+              uint8Array[i] = audioData.charCodeAt(i);
+          }
+
+          const audioBlob = new Blob([uint8Array], { type: "audio/mp3" });
+          this.audioQueue.push({
+            text: message.text,
+            blob: audioBlob
+          });
+        },
+        async playNextAudio() {
+          if (!this.audioShouldPlay) return;
+          
+          if (this.audioQueue.length === 0 || this.isRecording) {
+              this.isPlaying = false;
+              this.spokenText = ''
+              return;
+          }
+          this.isThinking = false;
+          this.isPlaying = true;
+          this.showSubtitle = false
+
+          const audioQueueItem = this.audioQueue.shift();
+          const url = URL.createObjectURL(audioQueueItem.blob);
+          const audio = this.$refs.audioPlayer;
+
+          audio.src = url;
+          await audio.play();
+          this.spokenText = audioQueueItem.text
+          this.showSubtitle = true
+
+          //animate sphere according to audio
+          const source = this.audioContext.createMediaElementSource(audio);
+          source.connect(this.analyser);
+          this.analyser.connect(this.audioContext.destination);
+
+          const bufferLength = this.analyser.frequencyBinCount;
+          const dataArray = new Uint8Array(bufferLength);
+
+          const sphere = this.$refs.sphere;
+
+          const animate = () => {
+            this.analyser.getByteFrequencyData(dataArray);
+            const average = dataArray.reduce((a, b) => a + b) / bufferLength;
+            const scale = 1 + average / 256 / 4; // divided by 3 to tone down the animation
+            const shadowIntensity = average / 256;
+
+            sphere.style.transform = `scale(${scale})`;
+            sphere.style.boxShadow = `0 0 ${10 + shadowIntensity * 20}px rgba(0, 255, 153, 0.8), 0 0 ${20 + shadowIntensity * 40}px rgba(0, 255, 153, 0.6)`;
+
+            this.animationFrameId = requestAnimationFrame(animate);
+          };
+
+          animate();
+
+          audio.onended = () => {
+              URL.revokeObjectURL(url);
+              this.playNextAudio();
+          };
+        },
+        stopVisualization() {
+          if (this.animationFrameId) {
+            cancelAnimationFrame(this.animationFrameId);
+            this.animationFrameId = null;
+          }
+        },
+        stopPlaying() {
+          //TODO: Stop STT, LLM and TTS in Backend
+          const audio = this.$refs.audioPlayer;
+          if (audio) {
+            audio.pause();
+            audio.currentTime = 0;
+          }
+          this.audioShouldPlay = false
+          this.audioQueue = []
+          this.isPlaying = false
+          this.spokenText = ''
+          this.isThinking = false
+        },
+        async setupMicrophone() {
+          console.log("[MIC] Setup wird gestartet...");
+          console.log("[MIC] navigator.mediaDevices vorhanden?", !!navigator.mediaDevices);
+          console.log("[MIC] getUserMedia verfügbar?", !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia));
+          console.log("[MIC] Kontext sicher (HTTPS/localhost)?", window.isSecureContext);
+          console.log("[MIC] Aktueller Ursprung:", window.location.origin);
+
+          if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            console.error("[MIC] ✗ getUserMedia nicht verfügbar! HTTPS erforderlich?");
+            console.error("[MIC] Mögliche Ursachen:");
+            console.error("   1. Seite wird über HTTP geladen (kein HTTPS/localhost)");
+            console.error("   2. Browser ist veraltet");
+            console.error("   3. Sicherheitsrichtlinien blockieren den Zugriff");
+            return;
+          }
+
+          try {
+            console.log("[MIC] Fordere Mikrofon-Zugriff an...");
+            this.microphoneStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            console.log("[MIC] ✓ Mikrofon-Stream erhalten:", {
+              id: this.microphoneStream.id,
+              active: this.microphoneStream.active,
+              tracks: this.microphoneStream.getAudioTracks().map(t => ({
+                label: t.label,
+                enabled: t.enabled,
+                muted: t.muted,
+                readyState: t.readyState
+              }))
+            });
+
+            console.log("[MIC] Erstelle MediaRecorder...");
+            this.recorder = new MediaRecorder(this.microphoneStream);
+            console.log("[MIC] ✓ MediaRecorder erstellt:", {
+              mimeType: this.recorder.mimeType,
+              state: this.recorder.state
+            });
+
+            this.recorder.ondataavailable = (event) => {
+              console.log(`[MIC] Daten verfügbar: ${event.data.size} Bytes`);
+              this.audioChunks.push(event.data);
+            };
+
+            this.recorder.onerror = (event) => {
+              console.error("[MIC] ✗ MediaRecorder-Fehler:", event.error);
+            };
+
+          } catch (error) {
+            console.error("[MIC] ✗ FEHLER beim Mikrofon-Setup:", error);
+            console.error("[MIC] Fehlername:", error.name);
+            console.error("[MIC] Fehlermeldung:", error.message);
+
+            // Spezifische Hinweise für häufige Fehler
+            if (error.name === 'NotAllowedError') {
+              console.error("[MIC] → Zugriff verweigert. Browser-Einstellungen prüfen!");
+            } else if (error.name === 'NotFoundError') {
+              console.error("[MIC] → Kein Mikrofon gefunden!");
+            } else if (error.name === 'NotReadableError') {
+              console.error("[MIC] → Mikrofon wird von anderer App verwendet!");
+            } else if (error.name === 'OverconstrainedError') {
+              console.error("[MIC] → Anforderung nicht erfüllbar (falsche Constraints)!");
+            } else if (error.name === 'SecurityError') {
+              console.error("[MIC] → Sicherheitsfehler! HTTPS erforderlich!");
+            }
+            throw error;
+          }
+        },
+        deactivateMicrophone() {
+          try {
+            this.microphoneStream.getTracks().forEach(track => track.stop());
+            this.microphoneStream = null;
+            this.recorder = null;
+          } catch (error) {
+            console.warn(`Error deactivating microphone: ${error}`)
+          }
+        },
+        async startRecording() {
+          console.log("[REC] StartRecording aufgerufen");
+          console.log("[REC] Aktueller Zustand:", {
+            microphoneStream: this.microphoneStream ? "aktiv" : "null",
+            recorder: this.recorder ? `state=${this.recorder.state}` : "null",
+            isRecording: this.isRecording
+          });
+
+          this.stopPlaying()
+          try {
+            if (this.microphoneStream == null || this.recorder == null) {
+              console.log("[REC] Mikrofon noch nicht eingerichtet → setupMicrophone()");
+              await this.setupMicrophone()
+            }
+
+            if (!this.recorder) {
+              throw new Error("MediaRecorder konnte nicht erstellt werden (Mikrofon-Setup fehlgeschlagen?)");
+            }
+
+            if (this.recorder.state === 'recording') {
+              console.warn("[REC] Recorder nimmt bereits auf — ignoriere");
+              return;
+            }
+
+            // Start recording
+            console.log("[REC] Starte Aufnahme...");
+            this.audioChunks = [];
+            this.recorder.start();
+            this.isRecording = true;
+            console.log("[REC] ✓ Aufnahme läuft (recorder.state=" + this.recorder.state + ")");
+          } catch (error) {
+            console.error("[REC] ✗ FEHLER bei startRecording:", error);
+            console.error("[REC] Error name:", error.name);
+            console.error("[REC] Error message:", error.message);
+            alert('Unable to access the microphone: ' + error.message);
+          }
+        },
+        async recorderStopAndGetBlob() {
+          return new Promise((resolve) => {
+            if (!this.recorder || this.recorder.state === 'inactive') {
+              console.warn("[REC] Recorder inaktiv oder null — gebe null zurück");
+              resolve(null);
+              return;
+            }
+
+            this.recorder.onstop = () => {
+              const mimeType = this.recorder.mimeType || 'audio/webm';
+              const audioBlob = new Blob(this.audioChunks, { type: mimeType });
+              console.log(`[REC] ✓ Aufnahme beendet: ${audioBlob.size} Bytes, Typ: ${mimeType}`);
+              this.audioChunks = [];
+              resolve(audioBlob);
+            };
+
+            this.recorder.stop();
+            this.isRecording = false;
+          });
+        },
+        cancelRecording() {
+          this.recorderStopAndGetBlob()
+        },
+        async sendRecording(includePicture = false) {
+          console.log("[SEND] sendRecording aufgerufen (includePicture=" + includePicture + ")");
+          this.showDotDotDot()
+
+          this.audioShouldPlay = true;
+
+          console.log("[SEND] Stoppe Recorder und hole Blob...");
+          const audioBlob = await this.recorderStopAndGetBlob()
+
+          if (!audioBlob || audioBlob.size === 0) {
+            console.error("[SEND] ✗ Kein Audio-Blob erhalten oder leer!");
+            console.error("[SEND] Blob:", audioBlob);
+            this.isThinking = false;
+            alert('Aufnahme fehlgeschlagen — kein Audio erhalten.');
+            return;
+          }
+
+          console.log("[SEND] ✓ Audio-Blob:", {
+            size: audioBlob.size + " Bytes",
+            type: audioBlob.type
+          });
+
+          const formData = new FormData();
+          formData.append('recording', audioBlob, 'recording.wav');
+
+          if (includePicture === true) {
+            const imageBlob = await this.captureImage();
+            formData.append("image", imageBlob, "snapshot.jpg");
+          }
+
+          this.isThinking = true;
+          console.log("[SEND] Sende an /audio_enabled_conversation...");
+          console.log("[SEND] WebSocket verbunden?", this.wsConnected ? "JA" : "NEIN");
+          console.log("[SEND] WebSocket ReadyState:", this.websocket ? this.websocket.readyState : "kein WS-Objekt");
+
+          try {
+            const response = await fetch('/audio_enabled_conversation', {
+              method: 'POST',
+              body: formData,
+            });
+
+            console.log("[SEND] ✓ Server-Antwort:", response.status, response.statusText);
+
+            // JSON nur parsen, wenn der Body tatsächlich JSON enthält
+            let result = {};
+            try {
+              result = await response.json();
+              console.log("[SEND] Antwort-Body:", result);
+            } catch (parseError) {
+              console.error("[SEND] ✗ Server-Antwort ist kein JSON:", parseError);
+              console.error("[SEND] Content-Type:", response.headers.get('content-type'));
+              this.isThinking = false;
+              alert('Server-Fehler (HTTP ' + response.status + '). Bitte Logs prüfen.');
+              return;
+            }
+
+            if (!response.ok) {
+              this.isThinking = false;
+              alert('Upload fehlgeschlagen: ' + (result.error || result.detail || 'HTTP ' + response.status));
+              return;
+            }
+
+            // FALLBACK: Wenn die Antwort NICHT via WebSocket gesendet wurde
+            // (ws_sent === false), verarbeite sie direkt aus dem HTTP-Body.
+            if (result.ws_sent === false && result.answer) {
+              console.log("[SEND] ⚠ WebSocket-Fallback aktiv — verarbeite Antwort aus HTTP-Body");
+              this.isThinking = false;
+              this.chatSendMessage('scaddy', result.answer);
+              this.processAndPlayTTSForScaddyText(result.answer);
+            }
+
+          } catch (error) {
+            console.error("[SEND] ✗ FEHLER beim Upload:", error);
+            this.isThinking = false;
+            alert('Failed to upload audio: ' + error.message);
+          }
+        },
+        async captureImage() {
+          const videoElement = this.$refs.cameraStream;
+
+          if (!videoElement || !videoElement.videoWidth) {
+            console.error("No video stream available.");
+            return null;
+          }
+
+          videoElement.classList.add("flash");
+          setTimeout(() => {
+            videoElement.classList.remove("flash");
+          }, 100);
+
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+
+          canvas.width = videoElement.videoWidth;
+          canvas.height = videoElement.videoHeight;
+          ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+
+          // Convert to Data URL and store in recentImage
+          const capturedImage = canvas.toDataURL("image/jpeg");
+          this.recentImage = capturedImage
+          this.showRecentImage = true;
+          this.chatHistory.push({sender: 'user', image: capturedImage});
+          this.scrollToBottom();
+
+          // Hide after 3 seconds
+          setTimeout(() => {
+            this.showRecentImage = false;
+          }, 3000);
+
+          // Convert to Blob for FormData
+          return new Promise((resolve) => {
+            canvas.toBlob((blob) => resolve(blob), "image/jpeg");
+          });
+        },
+        /* last changes [OW 250704] */
+        /* new chat scroll method [OW 250703] */
+        scrollToBottom() {
+          this.$nextTick(() => {
+            const container = this.$refs.chatContainer;
+            if (container) container.scrollTop = container.scrollHeight;
+          });
+        },
+        /* new add knowledge view [OW 250703] */
+        toggleKnowledgeView() {
+          this.chatview = false;
+          if (this.cameraview) {
+            this.cameraview = false;
+            this.stopCamera();
+          }
+
+          if (this.knowledgeview) {
+            this.knowledgeview = false;
+            this.stopCamera();
+            this.resetKnowledgeText();
+            this.resetKnowledgeImage();
+          } else {
+            this.knowledgeview = true;
+            this.activateCamera();
+          }
+        },
+        takeKnowledgePicture() {
+          const video = this.$refs.knowledgeVideo;
+          const canvas = document.createElement("canvas");
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+
+          const context = canvas.getContext("2d");
+          context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+          const dataURL = canvas.toDataURL("image/jpeg");
+          this.knowledgeImage = dataURL;
+
+          if (!this.knowledgeview) {
+            this.recentImage = dataURL;
+            this.showRecentImage = true;
+          }
+        },
+        resetKnowledgeImage() {
+          this.knowledgeImage = null;
+
+          // Kamera neu aktivieren
+          if (this.knowledgeview) {
+            navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+              const video = this.$refs.knowledgeVideo;
+              if (video) video.srcObject = stream;
+              this.knowledgeStream = stream;
+            });
+          }
+        },
+
+        resetKnowledgeText() {
+          this.knowledgeText = "";
+        },
+        toggleKnowledgeRecording() {
+          if (this.isRecordingKnowledge) {
+            // Stop recording
+            this.mediaRecorderKnowledge.stop();
+            this.audioStreamKnowledge.getTracks().forEach(track => track.stop());
+            this.isRecordingKnowledge = false;
+            return;
+          }
+
+          // Start recording
+          this.isRecordingKnowledge = true;
+
+          navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+            this.audioStreamKnowledge = stream;
+
+            const mediaRecorder = new MediaRecorder(stream);
+            this.mediaRecorderKnowledge = mediaRecorder;
+
+            const audioChunks = [];
+
+            mediaRecorder.ondataavailable = e => {
+              audioChunks.push(e.data);
+            };
+
+            mediaRecorder.onstop = () => {
+              const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
+              const file = new File([audioBlob], "annotation.wav");
+
+              const formData = new FormData();
+              formData.append("recording", file);
+
+              fetch("/stt_knowledge_annotation", {
+                method: "POST",
+                body: formData
+              })
+                .then(res => res.json())
+                .then(data => {
+                  if (data.transcription) {
+                    this.knowledgeText = data.transcription;
+                  } else {
+                    this.knowledgeText = this.transl.lbl_no_voice_detected[this.lang];
+                  }
+                })
+                .catch(err => {
+                  console.error("Fehler bei STT:", err);
+                  this.knowledgeText = "Transkript fehlgeschlagen.";
+                });
+            };
+
+            mediaRecorder.start();
+
+            // Sicherheits-Timeout
+            setTimeout(() => {
+              if (this.isRecordingKnowledge) {
+                mediaRecorder.stop();
+                stream.getTracks().forEach(track => track.stop());
+                this.isRecordingKnowledge = false;
+              }
+            }, 30000); // 30 Sekunden max
+          });
+        },
+        async confirmKnowledgeEntry() {
+          if (this.isSavingKnowledge) return;
+          this.isSavingKnowledge = true;
+
+          if (!this.knowledgeImage || !this.knowledgeText) {
+            alert("Bitte nimm ein Bild auf und gib eine Beschreibung ein.");
+            this.isSavingKnowledge = false;
+            return;
+          }
+
+          try {
+            const response = await fetch("/add_clip_embedding", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                image: this.knowledgeImage,
+                title: this.knowledgeText,
+                description: this.knowledgeText
+              })
+            });
+
+            // JSON nur parsen, wenn der Body tatsächlich JSON enthält
+            let result = {};
+            try {
+              result = await response.json();
+              console.log("[📬] Upload-Antwort:", response.status, result);
+            } catch (parseError) {
+              console.error("[📬] ✗ Server-Antwort ist kein JSON:", parseError);
+              alert("Server-Fehler (HTTP " + response.status + "). Bitte Logs prüfen.");
+              return;
+            }
+
+            if (response.ok && result.message) {
+              this.confirmSuccess = true;
+              this.resetKnowledgeText();
+              this.resetKnowledgeImage();
+              setTimeout(() => this.confirmSuccess = false, 3000);
+              this.chatSendMessage('system', 'Bild und Erklärung an Scaddy gesendet')
+            } else {
+              alert("Fehler beim Speichern: " + (result.error || result.detail || "Unbekannter Fehler"));
+            }
+
+          } catch (error) {
+            console.error("[📬] ✗ FEHLER beim Speichern:", error);
+            alert("Netzwerk-Fehler beim Speichern: " + error.message);
+          } finally {
+            this.isSavingKnowledge = false;
+          }
+        },
+        playMainViewHelp() {
+          this.chatSendMessage('system', this.transl.lbl_help_main[this.lang])
+          this.requestScaddySpeak(this.transl.txt_help_main[this.lang])
+        },
+        playKnowledgeHelp() {
+          this.chatSendMessage('system', this.transl.lbl_help_add_knowledge[this.lang])
+          this.requestScaddySpeak(this.transl.txt_help_add_knowledge[this.lang])
+        },
+        playVisionModeHelp() {
+          this.chatSendMessage('system', this.transl.lbl_help_vision_mode[this.lang])
+          this.requestScaddySpeak(this.transl.txt_help_vision_mode[this.lang])
+        },
+        playChatViewHelp() {
+          this.chatSendMessage('system', this.transl.lbl_help_chat_view[this.lang])
+          this.requestScaddySpeak(this.transl.txt_help_chat_view[this.lang])
+        },
+        async requestScaddySpeak(text) {
+          if (this.isThinking || this.isPlaying) {
+            console.log('Scaddy spricht bereits, bitte warten...');
+            return;
+          }
+          this.isThinking = true;
+          this.audioShouldPlay = true;
+          this.processAndPlayTTSForScaddyText(text);
+          this.addToBackendConversationProtocol('scaddy', text)
+        },
+        addToBackendConversationProtocol(speaker, text) {
+          fetch("/add_to_conversation_protocol", {
+            method: "POST",
+            body: JSON.stringify({ speaker, text })
+          });
+        },
+        pokeScaddy() {
+          this.showDotDotDot()
+          this.chatSendMessage('system', this.transl.lbl_poke_scaddy[this.lang])
+          this.requestScaddySpeak(this.transl.txt_poke_scaddy[this.lang])
+        },
+        showDotDotDot() {
+          this.spokenText = '.'
+          setTimeout(() => {
+            if (this.spokenText != '.') return
+            this.spokenText = '..'
+            setTimeout(() => {
+              if (this.spokenText != '..') return
+              this.spokenText = '...'
+              setTimeout(() => {
+                if (this.spokenText != '...') return
+                this.spokenText = this.transl.lbl_thinking[this.lang]
+              }, 4000);
+            }, 600);
+          }, 600);
+        }
+      }
+    });
+
+    app.mount('#app');
+
+    //add simple stop function to Audio
+    Audio.prototype.stop = function() {
+      this.pause();
+      this.currentTime = 0;
+    };
+  </script>
+</body>
+</html>

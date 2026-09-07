@@ -1,0 +1,32 @@
+title Speak to Scaddy with Image
+
+participant User
+participant Scaddy Frontend
+participant Scaddy Backend
+participant VLM @ Kiara Cluster
+participant LLM @ Kiara Cluster OR OpenAI
+participant TTS OpenAI
+
+
+
+
+User->Scaddy Frontend: record audio
+User-->Scaddy Frontend: take picture (optional)
+Scaddy Frontend->Scaddy Backend: send recorded audio (and image) to API edpoint
+Scaddy Backend->Scaddy Backend: VAD service: check if recording contains speech
+Scaddy Backend->Scaddy Backend: STT service: transcribe audio with FasterWhisper
+Scaddy Backend->Scaddy Frontend: send transcribed text via websocket
+Scaddy Backend-->Scaddy Backend: CLIP service: compare image to embeddings of labeled images
+Scaddy Backend<-->VLM @ Kiara Cluster: send image and get image description and OCR from VLM
+
+Scaddy Backend->LLM @ Kiara Cluster OR OpenAI: send transcribed question, conversation history, system prompt, CLIP result, VLM image description
+Scaddy Backend<--LLM @ Kiara Cluster OR OpenAI: request CAG tool use (optional)
+Scaddy Backend-->Scaddy Backend: CAG service: retrieve knowledge from large context model
+Scaddy Backend-->LLM @ Kiara Cluster OR OpenAI: CAG tool: add requested info about ScaDS.AI, Living Lab or Scaddy to context
+Scaddy Backend<-LLM @ Kiara Cluster OR OpenAI: return LLM inferred answer to user question as text
+Scaddy Backend<->LLM @ Kiara Cluster OR OpenAI: use formatting agent to split answer text into sentences for improved text-to-speech
+Scaddy Frontend<-Scaddy Backend: return answer text
+Scaddy Frontend->Scaddy Backend: request text-to-speech for every sentence
+Scaddy Backend<->TTS OpenAI: generate audio for every sentence
+Scaddy Frontend<-Scaddy Backend: return audio for every sentence
+User<-Scaddy Frontend: play/display answer as audio and text

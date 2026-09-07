@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CAG-Wissen bearbeiten</title>
+    <style>
+        textarea {
+            width: 100%;
+            height: 60vh;
+            width: 80vw;
+            font-family: monospace;
+            font-size: 14px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>🧠 CAG-Wissensbasis (scads.txt) bearbeiten</h2>
+
+    <form method="post" action="/admin/save_cag">
+        <textarea name="knowledge_text">{{ knowledge }}</textarea>
+        <br><br>
+        <button type="submit">💾 Änderungen speichern</button>
+    </form>
+
+    {% if request.query_params.get("saved") %}
+    <p style="color: green;">✅ Datei erfolgreich gespeichert.</p>
+    {% endif %}
+
+    <p><strong>Hinweis:</strong> Änderungen werden beim nächsten CAG-Start aktiv.</p>
+    <a href="/admin/config">🔙 Zurück zur Admin-Übersicht</a>
+</body>
+</html>

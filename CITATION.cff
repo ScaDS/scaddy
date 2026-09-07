@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "Scaddy: Multi-Agent Conversational AI for Living Lab Tours"
+authors:
+  - given-names: Oliver
+    family-names: Welz
+    email: oliver.welz@uni-leipzig.de
+  - given-names: Philipp
+    family-names: Schott
+  - given-names: Gregor
+    family-names: Wolf
+repository-code: "https://github.com/scads/scaddy"
+abstract: >
+  Scaddy is a tablet-based, multi-agent conversational AI designed for
+  guided tours in Living Lab environments. It combines voice input
+  (faster-whisper STT), image recognition (CLIP-based visRAG), a
+  multi-agent LLM pipeline (main conversation agent + sentence formatter
+  agent + CAG knowledge agent), and text-to-speech (OpenAI-compatible
+  TTS endpoints) to create a natural, engaging visitor experience.
+  The backend is fully generic and can be configured to use any
+  OpenAI-compatible endpoint (llm.scads.ai, OpenAI, llama.cpp
+  llama-server, vLLM, LM Studio, etc.) via environment variables.
+keywords:
+  - conversational-ai
+  - living-lab
+  - multi-agent
+  - speech-to-text
+  - text-to-speech
+  - vision-language-model
+  - clip
+  - faster-whisper
+  - fastapi
+  - vue
+license: MIT
